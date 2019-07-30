@@ -15,4 +15,19 @@ export const DiscussionSchema = gql`
     id: ID!
     comments: [DiscussionComment]
   }
+
+  input PostDiscussionInput {
+    discussion: ID!
+    body: String!
+    reply: ID!
+  }
+
+  extend type Mutation {
+    postDiscussionComment(input: PostDiscussionInput!): MutationResponse
+    updateDiscissionComment(
+      discussionComment: ID!
+      body: String!
+    ): MutationResponse
+    deleteDiscussionComment(discussionComment: ID!): MutationResponse
+  }
 `;

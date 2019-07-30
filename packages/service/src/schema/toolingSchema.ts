@@ -5,6 +5,7 @@ import { UserSchema } from './User';
 import { FlavorSchema } from './Flavor';
 import { DiscussionSchema } from './Discussion';
 import { BatchSchema } from './Batch';
+import { ReviewSchema } from './Review';
 
 export default mergeSchemas({
   schemas: [
@@ -12,6 +13,7 @@ export default mergeSchemas({
     RecipeSchema,
     UserSchema,
     FlavorSchema,
+    ReviewSchema,
     DiscussionSchema,
     BatchSchema,
   ],

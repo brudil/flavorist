@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Flavor } from './Flavor';
 import { RecipeRevision } from './RecipeRevision';
 
@@ -15,4 +15,7 @@ export class FlavorUse {
     (recipeRevision) => recipeRevision.ingredients,
   )
   recipeRevision: RecipeRevision;
+
+  @Column({ type: 'int' })
+  percentage: number;
 }

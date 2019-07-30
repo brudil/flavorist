@@ -14,6 +14,7 @@ export const RecipeSchema = gql`
     latestRevision: RecipeRevision
     visibility: RecipeVisibility
     discussion: Discussion
+    reviews: [Review]
     remixes: [Recipe]
     remixOf: Recipe
 
@@ -28,6 +29,7 @@ export const RecipeSchema = gql`
     revisionNumber: Int
     recpie: Recipe
     latestRevision: RecipeRevision
+    reviews: [Review]
 
     createdAt: String
     updatedAt: String
@@ -36,7 +38,27 @@ export const RecipeSchema = gql`
   type FlavorUse {
     id: ID!
     flavor: Flavor
-    title: String
+    percentage: Int
+  }
+
+  input IngredientUseInput {
+    flavorId: ID!
+    percentage: Int!
+  }
+
+  input CreateRecipeInput {
+    name: String!
+    ingredients: [IngredientUseInput]!
+  }
+
+  input UpdateRecipeInput {
+    name: String
+    ingredients: [IngredientUseInput]!
+  }
+
+  extend type Mutation {
+    createRecipe(recipie: CreateRecipeInput): MutationResponse
+    updateRecipe(recipie: UpdateRecipeInput): MutationResponse
   }
 
   extend type Query {

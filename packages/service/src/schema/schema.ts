@@ -8,6 +8,7 @@ import { merge } from 'lodash';
 import { CoreSchema } from './Core';
 import { batchQuery } from '../query/batch';
 import { userMutation } from '../mutation/user';
+import { ReviewSchema } from './Review';
 
 const resolvers = merge(
   {},
@@ -24,6 +25,7 @@ export const schema = makeExecutableSchema({
     RecipeSchema,
     UserSchema,
     FlavorSchema,
+    ReviewSchema,
     DiscussionSchema,
     BatchSchema,
   ],
