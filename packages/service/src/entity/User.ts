@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   EntityRepository,
   getRepository,
@@ -8,6 +9,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
   Repository,
+  UpdateDateColumn,
 } from 'typeorm';
 import * as argon2 from 'argon2';
 import * as jwt from 'jsonwebtoken';
@@ -49,6 +51,12 @@ export class User {
 
   @Column({ default: 0 })
   reputation: number;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   public async authenticate(password: string): Promise<boolean> {
     try {

@@ -1,11 +1,14 @@
 import { gql } from 'apollo-server-core';
 
 export const UserSchema = gql`
-  type User {
+  type User implements DatedEntity {
     id: ID!
     name: String
     recipes: [Recipe]
     inventory: [InventoryItem]
+
+    createdAt: String
+    updatedAt: String
   }
 
   interface MutationResponse {

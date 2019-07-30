@@ -1,9 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Batch } from './Batch';
 import { Recipe } from './Recipe';
@@ -28,4 +30,10 @@ export class RecipeRevision {
 
   @OneToMany(() => Batch, (batch) => batch.recipeRevision)
   batches: Batch[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

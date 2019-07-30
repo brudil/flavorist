@@ -1,9 +1,11 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { User } from './User';
 import { RecipeRevision } from './RecipeRevision';
@@ -43,4 +45,10 @@ export class Recipe {
     default: RecipeVisibility.Private,
   })
   visibility: RecipeVisibility;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

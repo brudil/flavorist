@@ -1,4 +1,11 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { User } from './User';
 import { RecipeRevision } from './RecipeRevision';
 
@@ -12,4 +19,13 @@ export class Batch {
 
   @ManyToOne(() => User, (user) => user.batches)
   user: User;
+
+  @Column({ type: 'int' })
+  volume: number;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

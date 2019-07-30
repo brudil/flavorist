@@ -1,10 +1,12 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Discussion } from './Discussion';
 import { Vendor } from './Vendor';
@@ -30,4 +32,10 @@ export class Flavor {
 
   @OneToMany(() => FlavorUse, (use) => use.flavor)
   flavorUse: FlavorUse[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

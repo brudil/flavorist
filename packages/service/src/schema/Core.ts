@@ -7,4 +7,9 @@ export const CoreSchema = gql`
   type Mutation {
     _: Boolean
   }
+
+  interface DatedEntity {
+    createdAt: String
+    updatedAt: String
+  }
 `;

@@ -1,4 +1,11 @@
-import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { User } from './User';
 
 @Entity()
@@ -26,4 +33,10 @@ export class DiscussionComment {
 
   @ManyToOne(() => DiscussionComment, (comment) => comment.parent)
   responses: DiscussionComment[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
