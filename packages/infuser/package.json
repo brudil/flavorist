@@ -1,0 +1,19 @@
+{
+  "name": "@flavorist/infuser",
+  "version": "0.0.1",
+  "description": "Imports flavors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc -w",
+    "prepare": "tsc"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "csv-writer": "^1.0.0",
+    "x-ray": "^2.3.2"
+  },
+  "devDependencies": {
+    "@types/x-ray": "^2.3.3"
+  }
+}

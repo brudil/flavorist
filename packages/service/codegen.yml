@@ -1,0 +1,19 @@
+overwrite: true
+schema: "./src/schema/toolingSchema.ts"
+generates:
+  src/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"
+      - "typescript-document-nodes"
+    config:
+      mappers:
+        Batch: ../entity/Batch#Batch
+        User: ../entity/User#User
+        Discussion: ../entity/Discussion#Discussion
+        DiscussionComment: ../entity/Discussion#DiscussionComment
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
+require:
+  - ts-node/register

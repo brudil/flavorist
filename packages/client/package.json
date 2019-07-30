@@ -1,0 +1,41 @@
+{
+  "name": "@flavorist/client",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@emotion/core": "^10.0.14",
+    "@reach/router": "^1.2.1",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "apollo-cache-inmemory": "^1.6.2",
+    "apollo-client": "^2.6.3",
+    "apollo-link": "^1.2.12",
+    "apollo-link-error": "^1.1.11",
+    "apollo-link-http": "^1.5.15",
+    "graphql-tag": "^2.10.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-loadable": "^5.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@emotion/babel-preset-css-prop": "^10.0.14",
+    "@types/reach__router": "^1.2.4",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-lodash": "^3.3.4",
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-harddisk-plugin": "^1.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.36.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2",
+    "workbox-webpack-plugin": "^4.3.1"
+  },
+  "scripts": {
+    "serve": "webpack-dev-server"
+  }
+}
