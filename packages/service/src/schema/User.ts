@@ -11,6 +11,16 @@ export const UserSchema = gql`
     updatedAt: String
   }
 
+  type Viewer implements DatedEntity {
+    id: ID!
+    name: String
+    recipes: [Recipe]
+    inventory: [InventoryItem]
+
+    createdAt: String
+    updatedAt: String
+  }
+
   interface MutationResponse {
     code: String!
     success: Boolean!
@@ -44,5 +54,6 @@ export const UserSchema = gql`
 
   extend type Query {
     user(userId: ID!): User
+    viewer: Viewer
   }
 `;
