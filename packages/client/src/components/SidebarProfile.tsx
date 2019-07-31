@@ -2,14 +2,11 @@ import React, { useContext } from 'react';
 import { COLORS } from '../style/constants';
 import { SidebarContainer } from './SidebarContainer';
 import { auth, UserContext } from '../context/authentication';
-import { Link, Location, NavigateFn } from '@reach/router';
+import { Link } from '@reach/router';
 import { useLogout } from '../hooks/logout';
 
-const LoggedIn: React.FC<{ auth: UserContext; navigate: NavigateFn }> = ({
-  auth,
-  navigate,
-}) => {
-  const logout = useLogout(navigate);
+const LoggedIn: React.FC<{ auth: UserContext }> = ({ auth }) => {
+  const logout = useLogout();
 
   return (
     <SidebarContainer>
@@ -63,13 +60,7 @@ export const SidebarProfile: React.FC = () => {
         width: 220,
       }}
     >
-      {authData.user !== null ? (
-        <Location>
-          {(props) => <LoggedIn auth={authData} navigate={props.navigate} />}
-        </Location>
-      ) : (
-        <Anonymous />
-      )}
+      {authData.user !== null ? <LoggedIn auth={authData} /> : <Anonymous />}
     </div>
   );
 };

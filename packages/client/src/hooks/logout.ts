@@ -1,11 +1,10 @@
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
-import { NavigateFn } from '@reach/router';
 import { useContext } from 'react';
 import { auth } from '../context/authentication';
 import gql from 'graphql-tag';
 import { globalHistory } from '@reach/router';
 
-export const useLogout = (navigate: NavigateFn) => {
+export const useLogout = () => {
   const { resetStore } = useApolloClient();
   const [perform] = useMutation(gql`
     mutation Logout {

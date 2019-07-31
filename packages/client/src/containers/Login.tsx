@@ -2,8 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import * as yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useMutation } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
+
 import { useLogin } from '../hooks/login';
 
 const loginSchema = yup.object({
