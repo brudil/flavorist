@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@apollo/react-hooks": "^0.1.0-beta.11",
     "@emotion/core": "^10.0.14",
     "@reach/router": "^1.2.1",
     "@types/react": "^16.8.23",
@@ -15,6 +16,7 @@
     "apollo-link-http": "^1.5.15",
     "graphql-tag": "^2.10.1",
     "react": "^16.8.6",
+    "react-apollo": "^2.5.8",
     "react-dom": "^16.8.6",
     "react-loadable": "^5.5.0"
   },
@@ -23,6 +25,7 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@emotion/babel-preset-css-prop": "^10.0.14",
+    "@svgr/webpack": "^4.3.2",
     "@types/reach__router": "^1.2.4",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",

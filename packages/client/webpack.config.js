@@ -41,6 +41,10 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      }
     ]
     },
   resolve: {
@@ -55,7 +59,12 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'build'),
     compress: true,
-    port: 9000,
-    historyApiFallback: true
+    port: 8008,
+    historyApiFallback: true,
+    proxy: {
+      '/graphql': {
+        target: 'http://localhost:8000'
+      },
+    }
   }
 };
