@@ -9,11 +9,13 @@ import { CoreSchema } from './Core';
 import { batchQuery } from '../query/batch';
 import { userMutation } from '../mutation/user';
 import { ReviewSchema } from './Review';
+import { userQuery } from '../query/user';
 
 const resolvers = merge(
   {},
   // Queries!
   batchQuery,
+  userQuery,
 
   // Mutations!
   userMutation,

@@ -1,8 +1,58 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { COLORS } from '../style/constants';
 import { SidebarContainer } from './SidebarContainer';
+import { auth, UserContext } from '../context/authentication';
+import { Link, Location, NavigateFn } from '@reach/router';
+import { useLogout } from '../hooks/logout';
+
+const LoggedIn: React.FC<{ auth: UserContext; navigate: NavigateFn }> = ({
+  auth,
+  navigate,
+}) => {
+  const logout = useLogout(navigate);
+
+  return (
+    <SidebarContainer>
+      <img
+        css={{
+          borderRadius: '50%',
+        }}
+        width={28}
+        src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+        alt="Profile of James"
+      />
+      <span
+        css={{
+          fontSize: '1.1rem',
+          fontWeight: 600,
+        }}
+      >
+        {auth.user && (auth.user.username || auth.user.username)}
+      </span>
+      <button onClick={logout}>Logout</button>
+    </SidebarContainer>
+  );
+};
+
+const Anonymous: React.FC = () => (
+  <SidebarContainer>
+    <Link
+      to="/login"
+      css={{
+        fontSize: '1.1rem',
+        fontWeight: 600,
+        color: '#fff',
+        textDecoration: 'none',
+      }}
+    >
+      Log in / Register
+    </Link>
+  </SidebarContainer>
+);
 
 export const SidebarProfile: React.FC = () => {
+  const authData = useContext(auth);
+
   return (
     <div
       css={{
@@ -13,24 +63,13 @@ export const SidebarProfile: React.FC = () => {
         width: 220,
       }}
     >
-      <SidebarContainer>
-        <img
-          css={{
-            borderRadius: '50%',
-          }}
-          width={28}
-          src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
-          alt="Profile of James"
-        />
-        <span
-          css={{
-            fontSize: '1.1rem',
-            fontWeight: 600,
-          }}
-        >
-          James Canning
-        </span>
-      </SidebarContainer>
+      {authData.user !== null ? (
+        <Location>
+          {(props) => <LoggedIn auth={authData} navigate={props.navigate} />}
+        </Location>
+      ) : (
+        <Anonymous />
+      )}
     </div>
   );
 };

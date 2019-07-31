@@ -9,6 +9,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
   Repository,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import * as argon2 from 'argon2';
@@ -19,10 +20,14 @@ import { Batch } from './Batch';
 import { DiscussionComment } from './Discussion';
 import { UserEmailAddress } from './UserEmailAddress';
 
+@Unique(['username'])
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  username: string;
 
   @Column({ default: '' })
   name: string;

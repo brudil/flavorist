@@ -1,5 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Application } from './containers/Application';
+import { ApplicationRoot } from './containers/ApplicationRoot';
 
-render(React.createElement(Application), document.querySelector('.app'));
+render(React.createElement(ApplicationRoot), document.querySelector('.app'));

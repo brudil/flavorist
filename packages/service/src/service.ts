@@ -7,13 +7,15 @@ import * as Hapi from '@hapi/hapi';
 import { setupDb } from './db';
 import { ApolloServer } from 'apollo-server-hapi';
 import { schema } from './schema/schema';
+import { getCustomRepository } from 'typeorm';
+import { UserRepository } from './entity/User';
 
 const init = async () => {
   setupDb();
   const server = new ApolloServer({
     schema,
-    context: (req) => ({
-      req,
+    context: (request) => ({
+      server: request,
     }),
   });
 
@@ -21,6 +23,30 @@ const init = async () => {
     port: process.env.PORT,
     host: process.env.HOST,
   });
+
+  await app.register(require('@hapi/cookie'));
+
+  app.auth.strategy('session', 'cookie', {
+    cookie: {
+      name: 'flavorist-app',
+      password: '!wsYhFA*C2U6nz=Bu^%A@^F#SF3&kSR6',
+      isSecure: false,
+    },
+    redirectTo: false,
+    validateFunc: async (_request: unknown, session: any) => {
+      const userRepo = getCustomRepository(UserRepository);
+
+      const account = await userRepo.findOne(session.id);
+
+      if (!account) {
+        return { valid: false };
+      }
+
+      return { valid: true, credentials: account };
+    },
+  });
+
+  app.auth.default({ strategy: 'session', mode: 'optional' });
 
   await server.applyMiddleware({
     app,

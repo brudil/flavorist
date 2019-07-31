@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { css } from '@emotion/core';
 import { Link } from '@reach/router';
 import { COLORS } from '../style/constants';
 import Logotype from '../vectors/logotype.svg';
 import { SidebarProfile } from './SidebarProfile';
 import { SidebarContainer } from './SidebarContainer';
+import { auth } from '../context/authentication';
 
 const Section: React.FC = ({ children }) => (
   <li
@@ -39,6 +40,8 @@ const MenuItem: React.FC<{ href: string }> = ({ children, href }) => (
 );
 
 export const Sidebar: React.FC = () => {
+  const authData = useContext(auth);
+
   return (
     <div
       css={css`
@@ -68,16 +71,20 @@ export const Sidebar: React.FC = () => {
           <MenuItem href="/recipes">Recipes</MenuItem>
           <MenuItem href="/ingredients">Ingredients</MenuItem>
           <MenuItem href="/users">Flavorists</MenuItem>
-          <Section>My</Section>
-          <MenuItem href="/recipes?owner=both">Recipes</MenuItem>
-          <MenuItem href="/my/flavors">Inventory</MenuItem>
-          <MenuItem href="/my/favorites">Favorites</MenuItem>
-          <MenuItem href="/my/batches">Mixes</MenuItem>
-          <MenuItem href="/recipes?suggestions=1">Suggestions</MenuItem>
+          {authData.user !== null && (
+            <React.Fragment>
+              <Section>My</Section>
+              <MenuItem href="/recipes?owner=both">Recipes</MenuItem>
+              <MenuItem href="/my/flavors">Inventory</MenuItem>
+              <MenuItem href="/my/favorites">Favorites</MenuItem>
+              <MenuItem href="/my/batches">Mixes</MenuItem>
+              <MenuItem href="/recipes?suggestions=1">Suggestions</MenuItem>
+            </React.Fragment>
+          )}
         </ul>
       </SidebarContainer>
 
-      <SidebarProfile />
+      {!authData.isLoading && <SidebarProfile />}
     </div>
   );
 };

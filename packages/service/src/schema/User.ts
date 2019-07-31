@@ -4,6 +4,7 @@ export const UserSchema = gql`
   type User implements DatedEntity {
     id: ID!
     name: String
+    username: String
     recipes: [Recipe]
     inventory: [InventoryItem]
 
@@ -14,6 +15,7 @@ export const UserSchema = gql`
   type Viewer implements DatedEntity {
     id: ID!
     name: String
+    username: String
     recipes: [Recipe]
     inventory: [InventoryItem]
 
@@ -21,17 +23,11 @@ export const UserSchema = gql`
     updatedAt: String
   }
 
-  interface MutationResponse {
-    code: String!
-    success: Boolean!
-    message: String!
-  }
-
   type UserAuthorisation implements MutationResponse {
     code: String!
     success: Boolean!
     message: String!
-    user: User
+    viewer: Viewer
     token: String
   }
 
@@ -40,16 +36,21 @@ export const UserSchema = gql`
     success: Boolean!
     message: String!
     token: String
-    user: User
+    viewer: Viewer
   }
 
   extend type Mutation {
-    createUser(emailAddress: String!, password: String!): UserCreated
+    createUser(
+      emailAddress: String!
+      username: String!
+      password: String!
+    ): UserCreated
     authenticateUser(
       emailAddress: String!
       password: String!
     ): UserAuthorisation
     requestPasswordReset(emailAddress: String!): MutationResponse
+    logout: SimpleMutationResponse
   }
 
   extend type Query {
