@@ -17,6 +17,7 @@ export const FlavoristApp: React.FC = () => {
   const { data, loading } = useQuery(gql`
     query Auth {
       viewer {
+        id
         name
         username
       }

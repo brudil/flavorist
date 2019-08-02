@@ -13,7 +13,9 @@ const link = createHttpLink({
 });
 
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    dataIdFromObject: (object) => object.id,
+  }),
   link,
 });
 
