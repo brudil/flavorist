@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import * as yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
@@ -14,6 +14,7 @@ const loginSchema = yup.object({
 
 export const Login: React.FC<RouteComponentProps> = () => {
   const login = useLogin();
+  const [error, setError] = useState<null | string>(null);
 
   return (
     <div>
@@ -25,6 +26,7 @@ export const Login: React.FC<RouteComponentProps> = () => {
         onSubmit={async ({ emailAddress, password }, { setSubmitting }) => {
           const res = await login(emailAddress, password);
           console.log(res);
+          setError(null);
           setSubmitting(false);
         }}
       >
@@ -40,6 +42,7 @@ export const Login: React.FC<RouteComponentProps> = () => {
           </Form>
         )}
       </Formik>
+      {error && <div>Failed credentials</div>}
     </div>
   );
 };
