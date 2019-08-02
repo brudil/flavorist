@@ -11,6 +11,7 @@ import gql from 'graphql-tag';
 import { auth } from '../context/authentication';
 import { Login } from './Login';
 import { Register } from './Register';
+import { Global } from '@emotion/core';
 
 export const FlavoristApp: React.FC = () => {
   const { data, loading } = useQuery(gql`
@@ -30,6 +31,13 @@ export const FlavoristApp: React.FC = () => {
         actions: { logout: () => null },
       }}
     >
+      <Global
+        styles={{
+          body: {
+            paddingLeft: 220,
+          },
+        }}
+      />
       <React.Fragment>
         <Sidebar />
         <div>
