@@ -2,6 +2,7 @@ import { Resolvers } from '../../generated/graphql';
 import { getCustomRepository, getRepository } from 'typeorm';
 import { User, UserRepository } from '../../entity/User';
 import { UserEmailAddress } from '../../entity/UserEmailAddress';
+import { AuthenticationError } from 'apollo-server-errors';
 
 export const userMutation: Resolvers = {
   Mutation: {
@@ -32,18 +33,10 @@ export const userMutation: Resolvers = {
 
         request.cookieAuth.set({ id: user.id });
         return {
-          code: '200',
-          success: true,
           viewer: user,
-          message: '',
         };
       } catch (e) {
-        return {
-          code: '400',
-          success: false,
-          viewer: null,
-          message: '',
-        };
+        throw new Error('failed to create user');
       }
     },
     async authenticateUser(
@@ -58,27 +51,16 @@ export const userMutation: Resolvers = {
         console.log(request);
         request.cookieAuth.set({ id: user.id });
         return {
-          code: '200',
-          message: '',
-          success: true,
           viewer: user,
           token: user.generateToken(),
         };
       }
 
-      return {
-        code: '400',
-        success: false,
-        message: 'Failed to log in user',
-      };
+      throw new AuthenticationError('credentials are incorrect');
     },
     async logout(_, _x, { server: { request } }) {
       request.cookieAuth.clear();
-      return {
-        code: '200',
-        success: true,
-        message: '',
-      };
+      return { success: true };
     },
   },
 };

@@ -13,15 +13,7 @@ export const CoreSchema = gql`
     updatedAt: String
   }
 
-  interface MutationResponse {
-    code: String!
+  type MutationResponse {
     success: Boolean!
-    message: String!
-  }
-
-  type SimpleMutationResponse implements MutationResponse {
-    code: String!
-    success: Boolean!
-    message: String!
   }
 `;

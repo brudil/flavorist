@@ -23,7 +23,7 @@ export const DiscussionSchema = gql`
   }
 
   extend type Mutation {
-    postDiscussionComment(input: PostDiscussionInput!): MutationResponse
+    addDiscussionComment(input: PostDiscussionInput!): MutationResponse
     updateDiscussionComment(
       discussionComment: ID!
       body: String!

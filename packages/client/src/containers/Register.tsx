@@ -25,8 +25,6 @@ export const Register: React.FC<RouteComponentProps> = () => {
         username: $username
         password: $password
       ) {
-        success
-        code
         viewer {
           name
         }

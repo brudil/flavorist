@@ -23,18 +23,12 @@ export const UserSchema = gql`
     updatedAt: String
   }
 
-  type UserAuthorisation implements MutationResponse {
-    code: String!
-    success: Boolean!
-    message: String!
+  type UserAuthorisation {
     viewer: Viewer
     token: String
   }
 
-  type UserCreated implements MutationResponse {
-    code: String!
-    success: Boolean!
-    message: String!
+  type UserCreated {
     token: String
     viewer: Viewer
   }
@@ -50,7 +44,7 @@ export const UserSchema = gql`
       password: String!
     ): UserAuthorisation
     requestPasswordReset(emailAddress: String!): MutationResponse
-    logout: SimpleMutationResponse
+    logout: MutationResponse
   }
 
   extend type Query {

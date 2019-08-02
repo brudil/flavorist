@@ -8,8 +8,6 @@ export const useLogin = () => {
   const [perform] = useMutation<LoginMutation>(gql`
     mutation Login($emailAddress: String!, $password: String!) {
       authenticateUser(emailAddress: $emailAddress, password: $password) {
-        code
-
         viewer {
           username
         }

@@ -16,11 +16,7 @@ export const BatchSchema = gql`
     batch(batchId: ID!): Batch
   }
 
-  type BatchResponse implements MutationResponse {
-    code: String!
-    message: String!
-    success: Boolean!
-
+  type BatchResponse {
     batch: Batch
   }
 
