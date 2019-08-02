@@ -16,4 +16,8 @@ export const CoreSchema = gql`
   type MutationResponse {
     success: Boolean!
   }
+
+  interface Node {
+    id: ID!
+  }
 `;

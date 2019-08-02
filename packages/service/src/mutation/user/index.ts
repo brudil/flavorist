@@ -48,7 +48,6 @@ export const userMutation: Resolvers = {
       const user = await userRepo.findByEmailAdderss(emailAddress);
 
       if (user && (await user.authenticate(password))) {
-        console.log(request);
         request.cookieAuth.set({ id: user.id });
         return {
           viewer: user,

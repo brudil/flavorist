@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-core';
 
 export const ReviewSchema = gql`
-  type Review implements DatedEntity {
+  type Review implements DatedEntity & Node {
     id: ID!
     user: User
     body: String

@@ -5,13 +5,11 @@ import { Resolvers } from '../../generated/graphql';
 
 export const batchQuery: Resolvers = {
   Query: {
-    batch: async (_parent, { batchId }, context) => {
-      console.log(context);
-
+    batch: async (_parent, { batchId }) => {
       const batch = await getRepository(Batch).findOne(batchId, {
         relations: ['user'],
       });
-      console.log(batch);
+
       if (!batch) {
         throw new ApolloError('batch missing');
       }

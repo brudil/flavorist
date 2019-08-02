@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-core';
 
 export const UserSchema = gql`
-  type User implements DatedEntity {
+  type User implements DatedEntity & Node {
     id: ID!
     name: String
     username: String
@@ -12,7 +12,7 @@ export const UserSchema = gql`
     updatedAt: String
   }
 
-  type Viewer implements DatedEntity {
+  type Viewer implements DatedEntity & Node {
     id: ID!
     name: String
     username: String

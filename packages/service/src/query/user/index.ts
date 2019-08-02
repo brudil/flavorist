@@ -6,19 +6,13 @@ export const userQuery: Resolvers = {
       _parent,
       _,
       {
-        server,
         server: {
           request: { auth },
         },
       },
     ) => {
-      console.log(server);
       return auth.credentials;
     },
   },
-  User: {
-    id(user) {
-      return user.id.toString();
-    },
-  },
+  User: {},
 };

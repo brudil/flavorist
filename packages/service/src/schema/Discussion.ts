@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-core';
 
 export const DiscussionSchema = gql`
-  type DiscussionComment implements DatedEntity {
+  type DiscussionComment implements DatedEntity & Node {
     id: ID!
     user: User
     body: String
@@ -11,7 +11,7 @@ export const DiscussionSchema = gql`
     updatedAt: String
   }
 
-  type Discussion {
+  type Discussion implements Node {
     id: ID!
     comments: [DiscussionComment]
   }

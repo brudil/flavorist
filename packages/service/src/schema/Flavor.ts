@@ -1,13 +1,13 @@
 import { gql } from 'apollo-server-core';
 
 export const FlavorSchema = gql`
-  type Flavor {
+  type Flavor implements Node {
     id: ID!
     name: String
     vendor: Vendor
   }
 
-  type InventoryItem {
+  type InventoryItem implements Node {
     id: ID!
     flavor: Flavor
     user: User
@@ -15,7 +15,7 @@ export const FlavorSchema = gql`
     inventoryCost: Int
   }
 
-  type Vendor {
+  type Vendor implements Node {
     id: ID!
     flavors: [Flavor]
     name: String

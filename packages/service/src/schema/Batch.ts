@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-core';
 
 export const BatchSchema = gql`
-  type Batch implements DatedEntity {
+  type Batch implements DatedEntity & Node {
     id: ID!
     recipe: Recipe
     recipeRevision: RecipeRevision

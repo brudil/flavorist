@@ -10,9 +10,13 @@ import { batchQuery } from '../query/batch';
 import { userMutation } from '../mutation/user';
 import { ReviewSchema } from './Review';
 import { userQuery } from '../query/user';
+import { nodeInterface } from '../query/interfaces/Node';
 
 const resolvers = merge(
   {},
+  // Interfaces!
+  nodeInterface,
+
   // Queries!
   batchQuery,
   userQuery,
@@ -32,4 +36,5 @@ export const schema = makeExecutableSchema({
     BatchSchema,
   ],
   resolvers: resolvers as any,
+  inheritResolversFromInterfaces: true,
 });
