@@ -982,6 +982,16 @@
     "@graphql-codegen/visitor-plugin-common" "1.4.0"
     tslib "1.10.0"
 
+"@graphql-codegen/typescript-operations@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-operations/-/typescript-operations-1.4.0.tgz#2bc4692c9b1b168eb23fb3d8c73732d21fb55eec"
+  integrity sha512-VMQb/vccqJOEeYt7pPrWDFpvdL5z5L+axLCp/pnPv0v4fzSFuRMO5m8+VWej+q/DLd9dzFY/vGmMPo6Bq46+XQ==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "1.4.0"
+    "@graphql-codegen/typescript" "1.4.0"
+    "@graphql-codegen/visitor-plugin-common" "1.4.0"
+    tslib "1.10.0"
+
 "@graphql-codegen/typescript-resolvers@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-resolvers/-/typescript-resolvers-1.4.0.tgz#2e54e56f93b622ca2296a3f6c3f022b2aeb0f83f"

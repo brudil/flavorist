@@ -22,15 +22,9 @@
     "typeorm": "^0.2.18"
   },
   "scripts": {
-    "dev": "backpack",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "dev": "backpack"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.4.0",
-    "@graphql-codegen/introspection": "^1.4.0",
-    "@graphql-codegen/typescript": "1.4.0",
-    "@graphql-codegen/typescript-document-nodes": "1.4.0",
-    "@graphql-codegen/typescript-resolvers": "^1.4.0",
     "@types/dotenv": "^6.1.1",
     "@types/graphql": "^14.2.3",
     "@types/hapi__cookie": "^10.1.0",

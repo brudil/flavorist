@@ -1,7 +1,8 @@
 overwrite: true
-schema: "./src/schema/toolingSchema.ts"
+schema: "./packages/service/src/schema/toolingSchema.ts"
+documents: "./packages/client/src/**/*.{ts,tsx}"
 generates:
-  src/generated/graphql.ts:
+  ./packages/service/src/generated/graphql.ts:
     plugins:
       - "typescript"
       - "typescript-resolvers"
@@ -13,6 +14,10 @@ generates:
         Viewer: ../entity/User#User
         Discussion: ../entity/Discussion#Discussion
         DiscussionComment: ../entity/Discussion#DiscussionComment
+  ./packages/client/src/generated/graphql.ts:
+      plugins:
+        - "typescript"
+        - "typescript-operations"
   ./graphql.schema.json:
     plugins:
       - "introspection"
