@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 
 import { useLogin } from '../hooks/login';
+import Helmet from 'react-helmet';
 
 const loginSchema = yup.object({
   emailAddress: yup.string().email(),
@@ -18,6 +19,7 @@ export const Login: React.FC<RouteComponentProps> = () => {
 
   return (
     <div>
+      <Helmet title="Login" />
       <h1>Log in</h1>
 
       <Formik

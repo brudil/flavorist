@@ -12,6 +12,7 @@ import { auth } from '../context/authentication';
 import { Login } from './Login';
 import { Register } from './Register';
 import { Global } from '@emotion/core';
+import Helmet from 'react-helmet';
 
 export const FlavoristApp: React.FC = () => {
   const { data, loading } = useQuery(gql`
@@ -40,6 +41,7 @@ export const FlavoristApp: React.FC = () => {
         }}
       />
       <React.Fragment>
+        <Helmet titleTemplate="%s | Flavorist" defaultTitle="Flavorist" />
         <Sidebar />
         <div>
           <Router>

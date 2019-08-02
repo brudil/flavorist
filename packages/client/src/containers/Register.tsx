@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import Helmet from 'react-helmet';
 
 const loginSchema = yup.object({
   emailAddress: yup.string().email(),
@@ -34,6 +35,8 @@ export const Register: React.FC<RouteComponentProps> = () => {
 
   return (
     <div>
+      <Helmet title="Join" />
+
       <h1>Log in</h1>
 
       <Formik
