@@ -4,6 +4,7 @@ import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { FlavoristApp } from './FlavoristApp';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { AppCrashErrorBoundary } from '../components/AppCrashErrorBoundary';
 
 const link = createHttpLink({
   uri: '/graphql',
@@ -18,7 +19,9 @@ const client = new ApolloClient({
 export const ApplicationRoot: React.FC = () => {
   return (
     <ApolloProvider client={client}>
-      <FlavoristApp />
+      <AppCrashErrorBoundary>
+        <FlavoristApp />
+      </AppCrashErrorBoundary>
     </ApolloProvider>
   );
 };
