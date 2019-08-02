@@ -1,27 +1,16 @@
 import React from 'react';
-import { createHttpLink } from 'apollo-link-http';
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
 import { FlavoristApp } from './FlavoristApp';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { AppCrashErrorBoundary } from '../components/AppCrashErrorBoundary';
 import { Global } from '@emotion/core';
+import ApolloClient from 'apollo-client';
+import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 
-const link = createHttpLink({
-  uri: '/graphql',
-  credentials: 'same-origin',
-});
-
-const client = new ApolloClient({
-  cache: new InMemoryCache({
-    dataIdFromObject: (object) => object.id,
-  }),
-  link,
-});
-
-export const ApplicationRoot: React.FC = () => {
+export const ApplicationRoot: React.FC<{
+  apolloClient: ApolloClient<NormalizedCacheObject>;
+}> = ({ apolloClient }) => {
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <Global
         styles={{
           body: {
