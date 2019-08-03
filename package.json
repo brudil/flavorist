@@ -12,6 +12,7 @@
     "@graphql-codegen/introspection": "^1.4.0",
     "@graphql-codegen/typescript": "1.4.0",
     "@graphql-codegen/typescript-document-nodes": "1.4.0",
+    "@graphql-codegen/typescript-graphql-files-modules": "^1.4.0",
     "@graphql-codegen/typescript-operations": "^1.4.0",
     "@graphql-codegen/typescript-resolvers": "^1.4.0",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
