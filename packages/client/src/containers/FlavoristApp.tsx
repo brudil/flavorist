@@ -70,6 +70,7 @@ export const FlavoristApp: React.FC = () => {
       <Global
         styles={{
           body: {
+            margin: 0,
             paddingLeft: 220,
           },
         }}
@@ -78,7 +79,11 @@ export const FlavoristApp: React.FC = () => {
         <Helmet titleTemplate="%s | Flavorist" defaultTitle="Flavorist" />
         <BrandedHeadContent />
         <Sidebar />
-        <div>
+        <div
+          css={{
+            minHeight: '100vh',
+          }}
+        >
           <Router>
             <Home path="/" />
             <Explore path="explore" />
