@@ -7,6 +7,7 @@ import { auth } from '../context/authentication';
 import { Global } from '@emotion/core';
 import Helmet from 'react-helmet';
 import loadable from '@loadable/component';
+import { BrandedHeadContent } from '../components/BrandedHeadContent';
 
 const Home = loadable(async () => {
   const { Home } = await import('./Home');
@@ -71,6 +72,7 @@ export const FlavoristApp: React.FC = () => {
       />
       <React.Fragment>
         <Helmet titleTemplate="%s | Flavorist" defaultTitle="Flavorist" />
+        <BrandedHeadContent />
         <Sidebar />
         <div>
           <Router>

@@ -44,6 +44,17 @@ module.exports = {
       {
         test: /\.svg$/,
         use: ['@svgr/webpack'],
+        include: path.resolve(__dirname, "src/vectors")
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg|ico)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {},
+          },
+        ],
+        exclude: path.resolve(__dirname, "src/vectors")
       }
     ]
     },
