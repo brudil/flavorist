@@ -1,10 +1,12 @@
 import { createContext } from 'react';
 
+export type UserData = null | {
+  username: string;
+};
+
 export interface UserContext {
   isLoading: boolean;
-  user: null | {
-    username: string;
-  };
+  user: UserData;
   actions: {
     logout: () => void;
   };

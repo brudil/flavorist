@@ -2,6 +2,7 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { globalHistory } from '@reach/router';
 import { LoginMutation } from '../../generated/graphql';
 import LOGIN_MUTATION from './LoginMutation.graphql';
+import { decode } from 'qss';
 
 export const useLogin = () => {
   const { resetStore } = useApolloClient();
@@ -13,6 +14,11 @@ export const useLogin = () => {
     console.log(result);
 
     await resetStore();
-    globalHistory.navigate('/');
+    const query = decode<{ next?: string }>(
+      globalHistory.location.search.slice(1),
+    );
+    console.log(location.search);
+    console.log(query);
+    globalHistory.navigate(query.next ? query.next : '/');
   };
 };

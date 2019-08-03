@@ -8,6 +8,10 @@ import { Global } from '@emotion/core';
 import Helmet from 'react-helmet';
 import loadable from '@loadable/component';
 import { BrandedHeadContent } from '../components/BrandedHeadContent';
+import {
+  AnonymousRoute,
+  AuthenticatedRoute,
+} from '../components/AuthorisedRoute';
 
 const Home = loadable(async () => {
   const { Home } = await import('./Home');
@@ -78,9 +82,9 @@ export const FlavoristApp: React.FC = () => {
           <Router>
             <Home path="/" />
             <Explore path="explore" />
-            <BatchesRoot path="batches" />
-            <Login path="login" />
-            <Register path="join" />
+            <AuthenticatedRoute Component={BatchesRoot} path="batches" />
+            <AnonymousRoute Component={Login} path="login" />
+            <AnonymousRoute Component={Register} path="join" />
             <User path="user/:username" />
             <FourOhFour default />
           </Router>

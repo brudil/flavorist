@@ -19,6 +19,7 @@
     "apollo-link-http": "^1.5.15",
     "formik": "^1.5.8",
     "graphql-tag": "^2.10.1",
+    "qss": "^2.0.3",
     "react": "^16.8.6",
     "react-apollo": "^2.5.8",
     "react-dom": "^16.8.6",

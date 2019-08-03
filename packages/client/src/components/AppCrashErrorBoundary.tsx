@@ -1,6 +1,7 @@
 import React from 'react';
 import ErrorBoundary from 'react-error-boundary';
 import Helmet from 'react-helmet';
+import { isRedirect } from '@reach/router';
 
 const AppCrashErrorBoundaryContent = () => {
   return (
@@ -11,9 +12,20 @@ const AppCrashErrorBoundaryContent = () => {
   );
 };
 
+function onError(error: Error) {
+  if (isRedirect(error)) {
+    throw error;
+  } else {
+    // do whatever you were going to do
+  }
+}
+
 export const AppCrashErrorBoundary: React.FC = ({ children }) => {
   return (
-    <ErrorBoundary FallbackComponent={AppCrashErrorBoundaryContent}>
+    <ErrorBoundary
+      FallbackComponent={AppCrashErrorBoundaryContent}
+      onError={onError}
+    >
       {children}
     </ErrorBoundary>
   );
