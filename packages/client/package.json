@@ -6,6 +6,7 @@
   "dependencies": {
     "@apollo/react-hooks": "0.1.0-beta.10",
     "@emotion/core": "^10.0.14",
+    "@loadable/component": "^5.10.2",
     "@reach/router": "^1.2.1",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
@@ -32,6 +33,7 @@
     "@babel/preset-react": "^7.0.0",
     "@emotion/babel-preset-css-prop": "^10.0.14",
     "@svgr/webpack": "^4.3.2",
+    "@types/loadable__component": "^5.10.0",
     "@types/reach__router": "^1.2.4",
     "@types/yup": "^0.26.22",
     "awesome-typescript-loader": "^5.2.1",
