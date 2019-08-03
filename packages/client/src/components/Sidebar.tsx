@@ -74,11 +74,11 @@ export const Sidebar: React.FC = () => {
           {authData.user !== null && (
             <React.Fragment>
               <Section>My</Section>
-              <MenuItem href="/recipes?owner=both">Recipes</MenuItem>
-              <MenuItem href="/my/flavors">Inventory</MenuItem>
-              <MenuItem href="/my/favorites">Favorites</MenuItem>
-              <MenuItem href="/my/batches">Mixes</MenuItem>
-              <MenuItem href="/recipes?suggestions=1">Suggestions</MenuItem>
+              <MenuItem href="/recipes">Recipes</MenuItem>
+              <MenuItem href="/inventory">Inventory</MenuItem>
+              <MenuItem href="/favorites">Favorites</MenuItem>
+              <MenuItem href="/batches">Mixes</MenuItem>
+              <MenuItem href="/recipes/suggested">Suggestions</MenuItem>
             </React.Fragment>
           )}
         </ul>
