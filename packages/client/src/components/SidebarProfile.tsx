@@ -42,7 +42,7 @@ const Anonymous: React.FC = () => (
         textDecoration: 'none',
       }}
     >
-      Log in / Register
+      Log in / Join
     </Link>
   </SidebarContainer>
 );
