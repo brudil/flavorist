@@ -12,9 +12,9 @@ const Section: React.FC = ({ children }) => (
     css={css`
       font-size: 13px;
       text-transform: uppercase;
-      color: #ccc;
+      color: #dfdee1;
+      font-weight: 600;
       margin-top: 2rem;
-      font-weight: 500;
     `}
   >
     {children}
@@ -28,7 +28,7 @@ const MenuItem: React.FC<{ href: string }> = ({ children, href }) => (
         display: block;
         font-size: 1.3rem;
         padding: 0.2rem 0;
-        color: #fff;
+        color: #ecebee;
         font-weight: 600;
         text-decoration: none;
       `}
@@ -68,9 +68,9 @@ export const Sidebar: React.FC = () => {
           `}
         >
           <Section>Explore</Section>
-          <MenuItem href="/recipes">Recipes</MenuItem>
-          <MenuItem href="/ingredients">Ingredients</MenuItem>
-          <MenuItem href="/users">Flavorists</MenuItem>
+          <MenuItem href="/explore/recipes">Recipes</MenuItem>
+          <MenuItem href="/explore/ingredients">Ingredients</MenuItem>
+          <MenuItem href="/explore/users">Flavorists</MenuItem>
           {authData.user !== null && (
             <React.Fragment>
               <Section>My</Section>
