@@ -1,7 +1,6 @@
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useContext } from 'react';
 import { auth } from '../../context/authentication';
-import { globalHistory } from '@reach/router';
 import { LogoutMutation } from '../../generated/graphql';
 import LOGOUT_MUTATION from './LogoutMutation.graphql';
 
@@ -16,6 +15,6 @@ export const useLogout = () => {
     await perform();
     logout();
     await resetStore();
-    globalHistory.navigate('/');
+    // globalHistory.navigate('/'); I'm thinking we don't need this now, authenticated routes will redirect out anyway.
   };
 };
