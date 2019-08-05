@@ -5,6 +5,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 
 import { useLogin } from '../hooks/login';
 import Helmet from 'react-helmet';
+import { type, TypeSize } from '../style/type';
 
 const loginSchema = yup.object({
   emailAddress: yup.string().email(),
@@ -59,9 +60,13 @@ export const Login: React.FC<RouteComponentProps> = () => {
         }}
       >
         <h1
-          css={{
-            textAlign: 'center',
-          }}
+          css={[
+            {
+              textAlign: 'center',
+              margin: '0 0 2rem 0',
+            },
+            type(TypeSize.DoublePica),
+          ]}
         >
           Log in
         </h1>
@@ -79,13 +84,13 @@ export const Login: React.FC<RouteComponentProps> = () => {
           {({ isSubmitting }) => (
             <Form>
               <FieldItem>
-                <label htmlFor="name">Email Address</label>
-                <Field type="email" name="emailAddress" />
+                <label htmlFor="email">Email Address</label>
+                <Field type="email" name="emailAddress" id="email" />
                 <ErrorMessage name="emailAddress" component="div" />
               </FieldItem>
               <FieldItem>
                 <label htmlFor="password">Password</label>
-                <Field type="password" name="password" />
+                <Field type="password" name="password" id="password" />
                 <ErrorMessage name="password" component="div" />
               </FieldItem>
               <FieldItem>
