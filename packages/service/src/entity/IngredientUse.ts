@@ -1,14 +1,14 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Flavor } from './Flavor';
+import { Ingredient } from './Ingredient';
 import { RecipeRevision } from './RecipeRevision';
 
 @Entity()
-export class FlavorUse {
+export class IngredientUse {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Flavor, (flavor) => flavor.flavorUse)
-  flavor: Flavor;
+  @ManyToOne(() => Ingredient, (ingredient) => ingredient.ingredientUse)
+  ingredient: Ingredient;
 
   @ManyToOne(
     () => RecipeRevision,

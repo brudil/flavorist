@@ -1,4 +1,4 @@
-query ExploreIngredients($id: ID!) {
+query Ingredient($id: ID!) {
   ingredient(id: $id) {
     id
     name

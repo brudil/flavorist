@@ -6,13 +6,13 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 import { setupDb } from '../db';
 import { getRepository } from 'typeorm';
-import { Flavor } from '../entity/Flavor';
+import { Ingredient } from '../entity/Flavor';
 import { Vendor } from '../entity/Vendor';
 
 (async () => {
   const connection = await setupDb();
 
-  const flavorRepo = getRepository(Flavor);
+  const ingredientRepo = getRepository(Ingredient);
   const vendorRepo = getRepository(Vendor);
 
   const file = await fs.readFile(
@@ -34,11 +34,11 @@ import { Vendor } from '../entity/Vendor';
       await vendorRepo.save(vendor);
     }
 
-    const flavorEntity = new Flavor();
+    const flavorEntity = new Ingredient();
     flavorEntity.name = flavor.name;
     flavorEntity.vendor = vendor;
 
-    await flavorRepo.save(flavorEntity);
+    await ingredientRepo.save(flavorEntity);
   }
 
   await connection.close();

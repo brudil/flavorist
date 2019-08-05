@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import { UserSchema } from './User';
-import { FlavorSchema } from './Flavor';
+import { IngredientSchema } from './Ingredient';
 import { RecipeSchema } from './Recipe';
 import { DiscussionSchema } from './Discussion';
 import { BatchSchema } from './Batch';
@@ -32,7 +32,7 @@ export const schema = makeExecutableSchema({
     CoreSchema,
     RecipeSchema,
     UserSchema,
-    FlavorSchema,
+    IngredientSchema,
     ReviewSchema,
     DiscussionSchema,
     BatchSchema,

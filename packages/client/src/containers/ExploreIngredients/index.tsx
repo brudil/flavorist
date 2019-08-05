@@ -20,7 +20,7 @@ export const ExploreIngredients: React.FC<RouteComponentProps> = () => {
           ? data.allIngredients.map(
               (ingredient) =>
                 ingredient && (
-                  <li>
+                  <li key={ingredient.id}>
                     {ingredient.vendor && ingredient.vendor.shortName}{' '}
                     {ingredient.name}
                   </li>

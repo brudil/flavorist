@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Batch } from './Batch';
 import { Recipe } from './Recipe';
-import { FlavorUse } from './FlavorUse';
+import { IngredientUse } from './FlavorUse';
 
 @Entity()
 export class RecipeRevision {
@@ -25,8 +25,8 @@ export class RecipeRevision {
   @ManyToOne(() => Recipe, (recipe) => recipe.revisions)
   recipe: Recipe;
 
-  @OneToMany(() => FlavorUse, (use) => use.recipeRevision)
-  ingredients: FlavorUse[];
+  @OneToMany(() => IngredientUse, (use) => use.recipeRevision)
+  ingredients: IngredientUse[];
 
   @OneToMany(() => Batch, (batch) => batch.recipeRevision)
   batches: Batch[];

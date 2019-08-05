@@ -11,27 +11,27 @@ import {
 import { Discussion } from './Discussion';
 import { Vendor } from './Vendor';
 import { InventoryItem } from './InventoryItem';
-import { FlavorUse } from './FlavorUse';
+import { IngredientUse } from './IngredientUse';
 
 @Entity()
-export class Flavor {
+export class Ingredient {
   @PrimaryGeneratedColumn()
   id: number;
 
   @OneToOne(() => Discussion)
   discussion: number;
 
-  @ManyToOne(() => Vendor, (vendor) => vendor.flavors)
+  @ManyToOne(() => Vendor, (vendor) => vendor.ingredients)
   vendor: Vendor;
 
-  @OneToMany(() => InventoryItem, (inventoryItem) => inventoryItem.flavor)
+  @OneToMany(() => InventoryItem, (inventoryItem) => inventoryItem.ingredients)
   inventory: InventoryItem[];
 
   @Column()
   name: string;
 
-  @OneToMany(() => FlavorUse, (use) => use.flavor)
-  flavorUse: FlavorUse[];
+  @OneToMany(() => IngredientUse, (use) => use.ingredient)
+  ingredientUse: IngredientUse[];
 
   @CreateDateColumn()
   createdAt: Date;

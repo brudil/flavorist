@@ -2,12 +2,12 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import Helmet from 'react-helmet';
 import { useQuery } from '@apollo/react-hooks';
-import EXPLORE_INGREDIENTS_QUERY from './ExploreIngredients.graphql';
+import INGREDIENT_QUERY from './Ingredient.graphql';
 import { ExploreIngredientsQuery } from '../../generated/graphql';
 
 export const Ingredient: React.FC<RouteComponentProps> = () => {
   const { data, error, loading } = useQuery<ExploreIngredientsQuery>(
-    EXPLORE_INGREDIENTS_QUERY,
+    INGREDIENT_QUERY,
   );
 
   return (

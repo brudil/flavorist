@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Flavor } from './Flavor';
+import { Ingredient } from './Ingredient';
 import { User } from './User';
 
 @Entity()
@@ -17,8 +17,8 @@ export class InventoryItem {
   @Column()
   name: string;
 
-  @ManyToOne(() => Flavor, (flavor) => flavor.inventory)
-  flavor: Flavor;
+  @ManyToOne(() => Ingredient, (ingredient) => ingredient.inventory)
+  ingredients: Ingredient;
 
   @ManyToOne(() => User, (user) => user.inventory)
   user: User;

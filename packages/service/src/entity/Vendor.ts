@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Flavor } from './Flavor';
+import { Ingredient } from './Ingredient';
 
 @Entity()
 export class Vendor {
@@ -12,6 +12,6 @@ export class Vendor {
   @Column()
   shortName: string;
 
-  @ManyToOne(() => Flavor, (flavor) => flavor.vendor)
-  flavors: Flavor[];
+  @ManyToOne(() => Ingredient, (ingredient) => ingredient.vendor)
+  ingredients: Ingredient[];
 }

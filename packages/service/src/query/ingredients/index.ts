@@ -1,14 +1,14 @@
 import { Resolvers } from '../../generated/graphql';
 import { getRepository } from 'typeorm';
-import { Flavor } from '../../entity/Flavor';
+import { Ingredient } from '../../entity/Ingredient';
 
 export const ingredientQuery: Resolvers = {
   Query: {
     allIngredients: async (_parent) => {
-      const flavorRepo = getRepository(Flavor);
+      const ingredientRepo = getRepository(Ingredient);
 
-      return await flavorRepo.find({ relations: ['vendor'], take: 100 });
+      return await ingredientRepo.find({ relations: ['vendor'], take: 100 });
     },
   },
-  Flavor: {},
+  Ingredient: {},
 };

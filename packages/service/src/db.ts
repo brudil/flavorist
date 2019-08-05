@@ -1,8 +1,8 @@
 import { createConnection } from 'typeorm';
 import { Batch } from './entity/Batch';
 import { Discussion, DiscussionComment } from './entity/Discussion';
-import { Flavor } from './entity/Flavor';
-import { FlavorUse } from './entity/FlavorUse';
+import { Ingredient } from './entity/Flavor';
+import { IngredientUse } from './entity/FlavorUse';
 import { InventoryItem } from './entity/InventoryItem';
 import { Recipe } from './entity/Recipe';
 import { RecipeRevision } from './entity/RecipeRevision';
@@ -20,8 +20,8 @@ export async function setupDb() {
       Batch,
       Discussion,
       DiscussionComment,
-      Flavor,
-      FlavorUse,
+      Ingredient,
+      IngredientUse,
       InventoryItem,
       Recipe,
       RecipeRevision,
