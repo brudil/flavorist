@@ -23,6 +23,7 @@ export const FlavorSchema = gql`
   }
 
   extend type Query {
-    flavour(flavorId: ID!): Flavor
+    ingredient(id: ID!): Flavor
+    allIngredients: [Flavor]
   }
 `;

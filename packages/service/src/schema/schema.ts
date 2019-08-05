@@ -11,6 +11,7 @@ import { userMutation } from '../mutation/user';
 import { ReviewSchema } from './Review';
 import { userQuery } from '../query/user';
 import { nodeInterface } from '../query/interfaces/Node';
+import { ingredientQuery } from '../query/ingredients';
 
 const resolvers = merge(
   {},
@@ -20,6 +21,7 @@ const resolvers = merge(
   // Queries!
   batchQuery,
   userQuery,
+  ingredientQuery,
 
   // Mutations!
   userMutation,

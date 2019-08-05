@@ -1,4 +1,6 @@
 import { Resolvers } from '../../generated/graphql';
+import { getCustomRepository } from 'typeorm';
+import { UserRepository } from '../../entity/User';
 
 export const userQuery: Resolvers = {
   Query: {
@@ -12,6 +14,11 @@ export const userQuery: Resolvers = {
       },
     ) => {
       return auth.credentials;
+    },
+    user: async (_parent, { username }) => {
+      const userRepo = getCustomRepository(UserRepository);
+
+      return (await userRepo.findByUsername(username)) || null;
     },
   },
   User: {},

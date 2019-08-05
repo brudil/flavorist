@@ -22,7 +22,8 @@
     "typeorm": "^0.2.18"
   },
   "scripts": {
-    "dev": "backpack"
+    "dev": "backpack",
+    "cli-build": "tsc"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
@@ -30,6 +31,7 @@
     "@types/hapi__cookie": "^10.1.0",
     "@types/hapi__hapi": "^18.2.5",
     "@types/jsonwebtoken": "^8.3.2",
+    "@types/node": "^12.6.9",
     "backpack-core": "^0.8.4",
     "dotenv": "^8.0.0",
     "graphql-resolvers": "^0.3.3",

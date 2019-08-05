@@ -82,7 +82,7 @@ export class User {
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-  public async findByEmailAdderss(emailAddress: string) {
+  public async findByEmailAddress(emailAddress: string) {
     const emailAddressRepo = getRepository(UserEmailAddress);
     const emailAddressEntry = await emailAddressRepo.findOne(
       { emailAddress },
@@ -94,6 +94,10 @@ export class UserRepository extends Repository<User> {
     } catch {
       return null;
     }
+  }
+
+  public async findByUsername(username: string) {
+    return await this.findOne({ username });
   }
   //
   // public async createUser(emailAddress: string, password: string) {

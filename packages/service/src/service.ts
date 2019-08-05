@@ -11,7 +11,7 @@ import { getCustomRepository } from 'typeorm';
 import { UserRepository } from './entity/User';
 
 const init = async () => {
-  setupDb();
+  await setupDb();
   const server = new ApolloServer({
     schema,
     context: (request) => ({

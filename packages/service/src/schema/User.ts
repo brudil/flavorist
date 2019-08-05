@@ -48,7 +48,7 @@ export const UserSchema = gql`
   }
 
   extend type Query {
-    user(userId: ID!): User
+    user(username: String!): User
     viewer: Viewer
   }
 `;
