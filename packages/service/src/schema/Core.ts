@@ -20,4 +20,11 @@ export const CoreSchema = gql`
   interface Node {
     id: ID!
   }
+
+  type PageInfo {
+    endCursor: String
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    startCursor: String
+  }
 `;

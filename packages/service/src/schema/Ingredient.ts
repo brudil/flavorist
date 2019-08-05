@@ -22,8 +22,22 @@ export const IngredientSchema = gql`
     shortName: String
   }
 
+  type IngredientEdge {
+    node: Ingredient
+    cursor: String
+  }
+
+  type AllIngredientsConnection {
+    edges: [IngredientEdge]!
+    pageInfo: PageInfo!
+  }
+
   extend type Query {
-    ingredient(id: ID!): Ingredient
-    allIngredients: [Ingredient]
+    ingredient(id: ID!): Ingredient!
+    allIngredients(
+      cursor: String
+      first: Int
+      last: Int
+    ): AllIngredientsConnection!
   }
 `;
