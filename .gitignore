@@ -4,3 +4,5 @@ node_modules
 build
 generated
 graphql.schema.json
+packages/service/lib
+
