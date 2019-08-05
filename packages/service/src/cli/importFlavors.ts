@@ -6,7 +6,7 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 import { setupDb } from '../db';
 import { getRepository } from 'typeorm';
-import { Ingredient } from '../entity/Flavor';
+import { Ingredient } from '../entity/Ingredient';
 import { Vendor } from '../entity/Vendor';
 
 (async () => {
