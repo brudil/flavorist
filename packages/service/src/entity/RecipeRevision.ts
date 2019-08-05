@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Batch } from './Batch';
 import { Recipe } from './Recipe';
-import { IngredientUse } from './FlavorUse';
+import { IngredientUse } from './IngredientUse';
 
 @Entity()
 export class RecipeRevision {

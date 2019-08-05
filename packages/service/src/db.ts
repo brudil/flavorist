@@ -1,8 +1,8 @@
 import { createConnection } from 'typeorm';
 import { Batch } from './entity/Batch';
 import { Discussion, DiscussionComment } from './entity/Discussion';
-import { Ingredient } from './entity/Flavor';
-import { IngredientUse } from './entity/FlavorUse';
+import { Ingredient } from './entity/Ingredient';
+import { IngredientUse } from './entity/IngredientUse';
 import { InventoryItem } from './entity/InventoryItem';
 import { Recipe } from './entity/Recipe';
 import { RecipeRevision } from './entity/RecipeRevision';
