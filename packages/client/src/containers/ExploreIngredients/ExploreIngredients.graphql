@@ -1,11 +1,22 @@
-query ExploreIngredients {
-  allIngredients {
-    id
-    name
+query ExploreIngredients($cursor: String) {
+  allIngredients(cursor: $cursor) {
+    pageInfo {
+      startCursor
+      endCursor
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        id
+        name
 
-    vendor {
-      id
-      shortName
+        vendor {
+          id
+          shortName
+        }
+      }
     }
   }
 }
