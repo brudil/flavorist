@@ -18,14 +18,15 @@ const LoggedIn: React.FC<{ auth: UserContext }> = ({ auth }) => {
         src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
         alt="Profile of James"
       />
-      <span
+      <Link
+        to={`/user/${auth.user && auth.user.username}`}
         css={{
           fontSize: '1.1rem',
           fontWeight: 600,
         }}
       >
         {auth.user && (auth.user.username || auth.user.username)}
-      </span>
+      </Link>
       <button onClick={logout}>Logout</button>
     </SidebarContainer>
   );
