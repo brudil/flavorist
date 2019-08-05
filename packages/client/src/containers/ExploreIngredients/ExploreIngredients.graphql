@@ -1,0 +1,11 @@
+query ExploreIngredients {
+  allIngredients {
+    id
+    name
+
+    vendor {
+      id
+      shortName
+    }
+  }
+}

@@ -12,6 +12,7 @@ generates:
         Batch: ../entity/Batch#Batch
         User: ../entity/User#User
         Viewer: ../entity/User#User
+        Flavor: ../entity/Flavor#Flavor
         Discussion: ../entity/Discussion#Discussion
         DiscussionComment: ../entity/Discussion#DiscussionComment
   ./packages/client/src/generated/graphql.ts:

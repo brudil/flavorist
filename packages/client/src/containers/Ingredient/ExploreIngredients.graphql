@@ -1,0 +1,11 @@
+query ExploreIngredients($id: ID!) {
+  ingredient(id: $id) {
+    id
+    name
+
+    vendor {
+      id
+      shortName
+    }
+  }
+}

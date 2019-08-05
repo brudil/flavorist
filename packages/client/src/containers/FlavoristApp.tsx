@@ -23,6 +23,11 @@ const Explore = loadable(async () => {
   return Explore;
 });
 
+const ExploreIngredients = loadable(async () => {
+  const { ExploreIngredients } = await import('./ExploreIngredients');
+  return ExploreIngredients;
+});
+
 const FourOhFour = loadable(async () => {
   const { FourOhFour } = await import('./FourOhFour');
   return FourOhFour;
@@ -87,6 +92,7 @@ export const FlavoristApp: React.FC = () => {
           <Router>
             <Home path="/" />
             <Explore path="explore" />
+            <ExploreIngredients path="explore/ingredients" />
             <AuthenticatedRoute Component={BatchesRoot} path="batches" />
             <AnonymousRoute Component={Login} path="login" />
             <AnonymousRoute Component={Register} path="join" />
