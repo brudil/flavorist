@@ -27,7 +27,7 @@ export const RecipeSchema = gql`
     name: String
     ingredients: [IngredientUse]
     revisionNumber: Int
-    recpie: Recipe
+    recipe: Recipe
     latestRevision: RecipeRevision
     reviews: [Review]
 
@@ -57,8 +57,8 @@ export const RecipeSchema = gql`
   }
 
   extend type Mutation {
-    createRecipe(recipie: CreateRecipeInput): MutationResponse
-    updateRecipe(recipie: UpdateRecipeInput): MutationResponse
+    createRecipe(recipe: CreateRecipeInput): MutationResponse
+    updateRecipe(recipe: UpdateRecipeInput): MutationResponse
   }
 
   extend type Query {
