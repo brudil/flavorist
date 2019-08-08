@@ -1,6 +1,6 @@
 overwrite: true
 schema: "./packages/service/src/schema/toolingSchema.ts"
-documents: "./packages/client/src/**/*.graphql"
+documents: "./packages/client/src/graphql/**/*.ts"
 generates:
   ./packages/service/src/generated/graphql.ts:
     plugins:
@@ -18,9 +18,8 @@ generates:
       plugins:
         - "typescript"
         - "typescript-operations"
-  ./packages/client/src/generated/imports.d.ts:
-      plugins:
-        - "typescript-graphql-files-modules"
+      config:
+        avoidOptionals: true
   ./graphql.schema.json:
     plugins:
       - "introspection"

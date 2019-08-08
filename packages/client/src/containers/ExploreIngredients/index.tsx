@@ -2,12 +2,13 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import Helmet from 'react-helmet';
 import { useQuery } from '@apollo/react-hooks';
-import EXPLORE_INGREDIENTS_QUERY from './ExploreIngredients.graphql';
-import { ExploreIngredientsQuery } from '../../generated/graphql';
+import { getIngredients } from '../../graphql/queries/ingredients/getIngredients';
+import { GetIngredientsQuery } from '../../generated/graphql';
+import { paginationFetchMore } from '../../libs/simplePagninationUpdateQuery';
 
 export const ExploreIngredients: React.FC<RouteComponentProps> = () => {
-  const { data, error, loading, fetchMore } = useQuery<ExploreIngredientsQuery>(
-    EXPLORE_INGREDIENTS_QUERY,
+  const { data, error, loading, fetchMore } = useQuery<GetIngredientsQuery>(
+    getIngredients,
   );
 
   return (

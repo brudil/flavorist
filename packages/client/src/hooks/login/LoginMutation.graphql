@@ -1,7 +1,0 @@
-mutation Login($emailAddress: String!, $password: String!) {
-  authenticateUser(emailAddress: $emailAddress, password: $password) {
-    viewer {
-      username
-    }
-  }
-}

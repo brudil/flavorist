@@ -1,17 +1,20 @@
 import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useQuery } from '@apollo/react-hooks';
-
-import USER_PROFILE_QUERY from './UserProfile.graphql';
+import { getUserProfile } from '../../graphql/queries/user/getUserProfile';
+import { GetUserProfileQuery } from '../../generated/graphql';
 
 export const User: React.FC<RouteComponentProps<{ username: string }>> = ({
   username,
 }) => {
-  const { data, loading, error } = useQuery(USER_PROFILE_QUERY, {
-    variables: { username },
-  });
+  const { data, loading, error } = useQuery<GetUserProfileQuery>(
+    getUserProfile,
+    {
+      variables: { username },
+    },
+  );
 
-  if (loading || error) {
+  if (loading || error || !data) {
     return <h1>loading</h1>;
   }
 

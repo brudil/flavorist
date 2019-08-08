@@ -1,12 +1,12 @@
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { globalHistory } from '@reach/router';
-import { LoginMutation } from '../../generated/graphql';
-import LOGIN_MUTATION from './LoginMutation.graphql';
 import { decode } from 'qss';
+import { performLogin } from '../../graphql/mutations/auth/performLogin';
+import { PerformLoginMutation } from '../../generated/graphql';
 
 export const useLogin = () => {
   const { resetStore } = useApolloClient();
-  const [perform] = useMutation<LoginMutation>(LOGIN_MUTATION);
+  const [perform] = useMutation<PerformLoginMutation>(performLogin);
 
   return async (emailAddress: string, password: string) => {
     const result = await perform({ variables: { emailAddress, password } });

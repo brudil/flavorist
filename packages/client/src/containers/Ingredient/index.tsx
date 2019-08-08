@@ -2,11 +2,11 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import Helmet from 'react-helmet';
 import { useQuery } from '@apollo/react-hooks';
-import INGREDIENT_QUERY from './Ingredient.graphql';
-import { IngredientQuery } from '../../generated/graphql';
+import { getIngredient } from '../../graphql/queries/ingredients/getIngredient';
+import { GetIngredientQuery } from '../../generated/graphql';
 
 export const Ingredient: React.FC<RouteComponentProps> = () => {
-  const { data, error, loading } = useQuery<IngredientQuery>(INGREDIENT_QUERY);
+  const { data, error, loading } = useQuery<GetIngredientQuery>(getIngredient);
 
   return (
     <div>
