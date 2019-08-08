@@ -4,7 +4,7 @@ export const UserSchema = gql`
   type User implements DatedEntity & Node {
     id: ID!
     name: String
-    username: String
+    username: String!
     recipes: [Recipe]
     inventory: [InventoryItem]
 
@@ -14,7 +14,7 @@ export const UserSchema = gql`
 
   type Viewer implements DatedEntity & Node {
     id: ID!
-    name: String
+    name: String!
     username: String
     recipes: [Recipe]
     inventory: [InventoryItem]

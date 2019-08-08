@@ -36,35 +36,12 @@ export const ExploreIngredients: React.FC<RouteComponentProps> = () => {
 
       <button
         onClick={() =>
-          fetchMore({
-            variables: {
-              cursor:
-                data &&
-                data.allIngredients &&
-                data.allIngredients.pageInfo.endCursor,
-            },
-            updateQuery: (previousResult, { fetchMoreResult }) => {
-              if (!fetchMoreResult) return previousResult;
-
-              const newEdges = fetchMoreResult.allIngredients.edges;
-              const pageInfo = fetchMoreResult.allIngredients.pageInfo;
-
-              return newEdges.length
-                ? {
-                    // Put the new comments at the end of the list and update `pageInfo`
-                    // so we have the new `endCursor` and `hasNextPage` values
-                    allIngredients: {
-                      __typename: previousResult.allIngredients.__typename,
-                      edges: [
-                        ...previousResult.allIngredients.edges,
-                        ...newEdges,
-                      ],
-                      pageInfo,
-                    },
-                  }
-                : previousResult;
-            },
-          })
+          fetchMore(
+            paginationFetchMore(
+              'allIngredients',
+              data && data.allIngredients.pageInfo.endCursor,
+            ),
+          )
         }
       >
         Load more
