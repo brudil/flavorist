@@ -19,7 +19,7 @@ const decodeCursor = (cursor: string) => {
 export function createConnection({ first, last, cursor }: ConnectionArgs) {
   const previousCursor = cursor ? decodeCursor(cursor) : { offset: 0 };
 
-  const take = (first || last || 30) + 1;
+  const take = first || last || 30;
 
   return {
     payload<E>(items: (E & { id: number })[]) {
@@ -42,7 +42,7 @@ export function createConnection({ first, last, cursor }: ConnectionArgs) {
     },
     args(): { take?: number; skip: number } {
       return {
-        take,
+        take: take + 1,
         skip: previousCursor.offset,
       };
     },
