@@ -2,13 +2,17 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from './User';
 import { RecipeRevision } from './RecipeRevision';
+import { Namespace } from './Namespace';
+import { User } from './User';
+import { Discussion } from './Discussion';
 
 enum RecipeVisibility {
   Public = 'PUBLIC',
@@ -21,8 +25,11 @@ export class Recipe {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.recipes)
-  user: User;
+  @ManyToOne(() => Namespace, (namespace) => namespace.recipes)
+  namespace: Namespace;
+
+  @ManyToOne(() => User)
+  createdBy: User;
 
   @Column()
   totalRevisions: number;
@@ -51,4 +58,8 @@ export class Recipe {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToOne(() => Discussion)
+  @JoinColumn()
+  publicDiscussion: number;
 }

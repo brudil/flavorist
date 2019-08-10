@@ -14,11 +14,11 @@ import {
 } from 'typeorm';
 import * as argon2 from 'argon2';
 import * as jwt from 'jsonwebtoken';
-import { Recipe } from './Recipe';
-import { InventoryItem } from './InventoryItem';
-import { Batch } from './Batch';
 import { DiscussionComment } from './Discussion';
 import { UserEmailAddress } from './UserEmailAddress';
+import { Namespace } from './Namespace';
+import { Batch } from './Batch';
+import { TeamMembership } from './TeamMembership';
 
 @Unique(['username'])
 @Entity()
@@ -39,14 +39,15 @@ export class User {
   @JoinColumn()
   primaryEmailAddress: UserEmailAddress;
 
+  @OneToMany(() => TeamMembership, (membership) => membership.team)
+  teamMemberships!: TeamMembership[];
+
+  @OneToOne(() => Namespace, (namespace) => namespace.user)
+  @JoinColumn()
+  namespace: Namespace;
+
   @OneToMany(() => UserEmailAddress, (emailAddress) => emailAddress.user)
   emailAddresses: UserEmailAddress[];
-
-  @OneToMany(() => InventoryItem, (item) => item.user)
-  inventory: InventoryItem[];
-
-  @OneToMany(() => Recipe, (recipe) => recipe.user)
-  recipes: Recipe[];
 
   @OneToMany(() => Batch, (batch) => batch.user)
   batches: Batch[];

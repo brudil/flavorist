@@ -3,7 +3,7 @@ import { Ingredient } from './Ingredient';
 import { RecipeRevision } from './RecipeRevision';
 
 @Entity()
-export class IngredientUse {
+export class RecipeIngredientUse {
   @PrimaryGeneratedColumn()
   id: number;
 

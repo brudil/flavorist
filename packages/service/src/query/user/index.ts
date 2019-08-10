@@ -18,7 +18,13 @@ export const userQuery: Resolvers = {
     user: async (_parent, { username }) => {
       const userRepo = getCustomRepository(UserRepository);
 
-      return (await userRepo.findByUsername(username)) || null;
+      const user = await userRepo.findByUsername(username);
+
+      if (!user) {
+        throw Error('404');
+      }
+
+      return user;
     },
   },
   User: {},

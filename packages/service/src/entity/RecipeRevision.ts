@@ -9,7 +9,8 @@ import {
 } from 'typeorm';
 import { Batch } from './Batch';
 import { Recipe } from './Recipe';
-import { IngredientUse } from './IngredientUse';
+import { RecipeIngredientUse } from './RecipeIngredientUse';
+import { User } from './User';
 
 @Entity()
 export class RecipeRevision {
@@ -25,8 +26,8 @@ export class RecipeRevision {
   @ManyToOne(() => Recipe, (recipe) => recipe.revisions)
   recipe: Recipe;
 
-  @OneToMany(() => IngredientUse, (use) => use.recipeRevision)
-  ingredients: IngredientUse[];
+  @OneToMany(() => RecipeIngredientUse, (use) => use.recipeRevision)
+  ingredients: RecipeIngredientUse[];
 
   @OneToMany(() => Batch, (batch) => batch.recipeRevision)
   batches: Batch[];
@@ -36,4 +37,7 @@ export class RecipeRevision {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne(() => User)
+  createdBy: User;
 }

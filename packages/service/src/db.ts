@@ -2,13 +2,18 @@ import { createConnection } from 'typeorm';
 import { Batch } from './entity/Batch';
 import { Discussion, DiscussionComment } from './entity/Discussion';
 import { Ingredient } from './entity/Ingredient';
-import { IngredientUse } from './entity/IngredientUse';
+import { RecipeIngredientUse } from './entity/RecipeIngredientUse';
 import { InventoryItem } from './entity/InventoryItem';
 import { Recipe } from './entity/Recipe';
 import { RecipeRevision } from './entity/RecipeRevision';
 import { User } from './entity/User';
 import { Vendor } from './entity/Vendor';
 import { UserEmailAddress } from './entity/UserEmailAddress';
+import { BatchIngredientUse } from './entity/BatchIngredientUse';
+import { IngredientLedgerEntry } from './entity/IngredientLedgerEntry';
+import { Team } from './entity/Team';
+import { Namespace } from './entity/Namespace';
+import { TeamMembership } from './entity/TeamMembership';
 
 export async function setupDb() {
   return await createConnection({
@@ -18,15 +23,20 @@ export async function setupDb() {
     logging: true,
     entities: [
       Batch,
+      BatchIngredientUse,
       Discussion,
       DiscussionComment,
       Ingredient,
-      IngredientUse,
+      IngredientLedgerEntry,
       InventoryItem,
+      Namespace,
       Recipe,
+      RecipeIngredientUse,
       RecipeRevision,
-      UserEmailAddress,
+      Team,
+      TeamMembership,
       User,
+      UserEmailAddress,
       Vendor,
     ],
     migrations: ['src/migration/**/*.ts'],

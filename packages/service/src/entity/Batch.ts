@@ -3,11 +3,14 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from './User';
 import { RecipeRevision } from './RecipeRevision';
+import { BatchIngredientUse } from './BatchIngredientUse';
+import { Namespace } from './Namespace';
+import { User } from './User';
 
 @Entity()
 export class Batch {
@@ -17,11 +20,17 @@ export class Batch {
   @ManyToOne(() => RecipeRevision, (recipeRevision) => recipeRevision.batches)
   recipeRevision: RecipeRevision;
 
+  @ManyToOne(() => Namespace, (namespace) => namespace.batches)
+  namespace: Namespace;
+
   @ManyToOne(() => User, (user) => user.batches)
   user: User;
 
   @Column({ type: 'int' })
   volume: number;
+
+  @OneToMany(() => BatchIngredientUse, (use) => use.batch)
+  ingredients: BatchIngredientUse[];
 
   @CreateDateColumn()
   createdAt: Date;

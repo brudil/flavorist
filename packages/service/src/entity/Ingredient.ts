@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   OneToOne,
@@ -11,7 +12,8 @@ import {
 import { Discussion } from './Discussion';
 import { Vendor } from './Vendor';
 import { InventoryItem } from './InventoryItem';
-import { IngredientUse } from './IngredientUse';
+import { RecipeIngredientUse } from './RecipeIngredientUse';
+import { BatchIngredientUse } from './BatchIngredientUse';
 
 @Entity()
 export class Ingredient {
@@ -19,19 +21,23 @@ export class Ingredient {
   id: number;
 
   @OneToOne(() => Discussion)
-  discussion: number;
+  @JoinColumn()
+  publicDiscussion: number;
 
   @ManyToOne(() => Vendor, (vendor) => vendor.ingredients)
   vendor: Vendor;
 
-  @OneToMany(() => InventoryItem, (inventoryItem) => inventoryItem.ingredients)
-  inventory: InventoryItem[];
+  @OneToMany(() => InventoryItem, (inventoryItem) => inventoryItem.ingredient)
+  inventories: InventoryItem[];
 
   @Column()
   name: string;
 
-  @OneToMany(() => IngredientUse, (use) => use.ingredient)
-  ingredientUse: IngredientUse[];
+  @OneToMany(() => RecipeIngredientUse, (use) => use.ingredient)
+  ingredientUse: RecipeIngredientUse[];
+
+  @OneToMany(() => BatchIngredientUse, (use) => use.ingredient)
+  batchUse: BatchIngredientUse[];
 
   @CreateDateColumn()
   createdAt: Date;
