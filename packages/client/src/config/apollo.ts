@@ -1,8 +1,12 @@
 import { createHttpLink } from 'apollo-link-http';
 import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import {
+  InMemoryCache,
+  IntrospectionFragmentMatcher,
+} from 'apollo-cache-inmemory';
 import { persistCache } from 'apollo-cache-persist';
 import { createApolloKeyMapper } from '../libs/apolloKeyMapper';
+import introspectionResult from '../generated/introspection-result';
 
 export async function setupApolloClient() {
   const keyMap = createApolloKeyMapper({
@@ -16,7 +20,12 @@ export async function setupApolloClient() {
     credentials: 'same-origin',
   });
 
+  const fragmentMatcher = new IntrospectionFragmentMatcher({
+    introspectionQueryResultData: introspectionResult,
+  });
+
   const cache = new InMemoryCache({
+    fragmentMatcher,
     dataIdFromObject: (object) => {
       return object.id;
     },
