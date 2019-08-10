@@ -18,4 +18,7 @@ export class RecipeIngredientUse {
 
   @Column({ type: 'int' })
   percentage: number;
+
+  @Column()
+  note: string;
 }
