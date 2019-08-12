@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RouteComponentProps } from '@reach/router';
+import { Link, RouteComponentProps } from '@reach/router';
 import * as yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 
@@ -102,6 +102,10 @@ export const Login: React.FC<RouteComponentProps> = () => {
           )}
         </Formik>
         {error && <div>Failed credentials</div>}
+
+        <div>
+          New here? <Link to="/join">Join Flavorist</Link>
+        </div>
       </div>
     </div>
   );
