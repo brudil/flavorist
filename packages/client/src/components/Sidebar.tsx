@@ -79,6 +79,7 @@ export const Sidebar: React.FC = () => {
               <MenuItem href="/favorites">Favorites</MenuItem>
               <MenuItem href="/batches">Mixes</MenuItem>
               <MenuItem href="/recipes/suggested">Suggestions</MenuItem>
+              <MenuItem href="/teams">Teams</MenuItem>
             </React.Fragment>
           )}
         </ul>
