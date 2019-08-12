@@ -1,6 +1,6 @@
 import { Resolvers } from '../../generated/graphql';
-import { getCustomRepository } from 'typeorm';
-import { UserRepository } from '../../entity/User';
+import { User } from '../../entity/User';
+import { getTeamsForUser } from '../../db/teams';
 
 export const userQuery: Resolvers = {
   Query: {
@@ -15,17 +15,15 @@ export const userQuery: Resolvers = {
     ) => {
       return auth.credentials;
     },
-    user: async (_parent, { username }) => {
-      const userRepo = getCustomRepository(UserRepository);
+  },
+  User: {
+    teamsConnection: async (parent: User) => {
+      const teams = await getTeamsForUser(parent);
+      console.log(teams);
 
-      const user = await userRepo.findByUsername(username);
-
-      if (!user) {
-        throw Error('404');
-      }
-
-      return user;
+      return {
+        pageInfo: null as any,
+      };
     },
   },
-  User: {},
 };

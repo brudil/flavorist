@@ -22,6 +22,9 @@ const init = async () => {
   const app = new Hapi.Server({
     port: process.env.PORT,
     host: process.env.HOST,
+    state: {
+      strictHeader: false,
+    },
   });
 
   await app.register(require('@hapi/cookie'));
@@ -36,7 +39,9 @@ const init = async () => {
     validateFunc: async (_request: unknown, session: any) => {
       const userRepo = getCustomRepository(UserRepository);
 
-      const account = await userRepo.findOne(session.id);
+      const account = await userRepo.findOne(session.id, {
+        relations: ['namespace'],
+      });
 
       if (!account) {
         return { valid: false };
@@ -46,7 +51,7 @@ const init = async () => {
     },
   });
 
-  app.auth.default({ strategy: 'session', mode: 'optional' });
+  app.auth.default({ strategy: 'session', mode: 'try' });
 
   await server.applyMiddleware({
     app,

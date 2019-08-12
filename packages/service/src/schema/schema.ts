@@ -12,6 +12,10 @@ import { ReviewSchema } from './Review';
 import { userQuery } from '../query/user';
 import { nodeInterface } from '../query/interfaces/Node';
 import { ingredientQuery } from '../query/ingredients';
+import { TeamSchema } from './Team';
+import { NamespaceSchema } from './Namespace';
+import { namespaceQuery } from '../query/namespace';
+import { teamQuery } from '../query/team';
 
 const resolvers = merge(
   {},
@@ -22,6 +26,8 @@ const resolvers = merge(
   batchQuery,
   userQuery,
   ingredientQuery,
+  namespaceQuery,
+  teamQuery,
 
   // Mutations!
   userMutation,
@@ -32,6 +38,8 @@ export const schema = makeExecutableSchema({
     CoreSchema,
     RecipeSchema,
     UserSchema,
+    TeamSchema,
+    NamespaceSchema,
     IngredientSchema,
     ReviewSchema,
     DiscussionSchema,

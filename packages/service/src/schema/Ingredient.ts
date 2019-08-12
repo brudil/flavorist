@@ -27,7 +27,7 @@ export const IngredientSchema = gql`
     cursor: String
   }
 
-  type AllIngredientsConnection {
+  type AllIngredientsConnection implements Connection {
     edges: [IngredientEdge]!
     pageInfo: PageInfo!
   }

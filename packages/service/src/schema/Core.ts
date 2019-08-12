@@ -21,6 +21,10 @@ export const CoreSchema = gql`
     id: ID!
   }
 
+  interface Connection {
+    pageInfo: PageInfo!
+  }
+
   type PageInfo {
     endCursor: String
     hasNextPage: Boolean!

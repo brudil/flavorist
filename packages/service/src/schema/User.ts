@@ -4,23 +4,25 @@ export const UserSchema = gql`
   type User implements DatedEntity & Node {
     id: ID!
     name: String
-    username: String!
     recipes: [Recipe]
     inventory: [InventoryItem]
+    namespace: Namespace
 
     createdAt: String
     updatedAt: String
+    teamsConnection: TeamsConnection
   }
 
   type Viewer implements DatedEntity & Node {
     id: ID!
     name: String!
-    username: String
-    recipes: [Recipe]
-    inventory: [InventoryItem]
+
+    namespace: Namespace
 
     createdAt: String
     updatedAt: String
+
+    teamsConnection: TeamsConnection
   }
 
   type UserAuthorisation {
@@ -48,7 +50,6 @@ export const UserSchema = gql`
   }
 
   extend type Query {
-    user(username: String!): User
     viewer: Viewer
   }
 `;
