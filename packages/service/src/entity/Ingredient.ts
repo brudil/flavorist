@@ -15,6 +15,11 @@ import { InventoryItem } from './InventoryItem';
 import { RecipeIngredientUse } from './RecipeIngredientUse';
 import { BatchIngredientUse } from './BatchIngredientUse';
 
+export enum IngredientType {
+  Flavor = 1,
+  Base = 2,
+}
+
 @Entity()
 export class Ingredient {
   @PrimaryGeneratedColumn()
@@ -22,7 +27,7 @@ export class Ingredient {
 
   @OneToOne(() => Discussion)
   @JoinColumn()
-  publicDiscussion: number;
+  publicDiscussion: Discussion;
 
   @ManyToOne(() => Vendor, (vendor) => vendor.ingredients)
   vendor: Vendor;
@@ -32,6 +37,13 @@ export class Ingredient {
 
   @Column()
   name: string;
+
+  @Column({
+    type: 'enum',
+    enum: IngredientType,
+    default: IngredientType.Flavor,
+  })
+  type: IngredientType;
 
   @OneToMany(() => RecipeIngredientUse, (use) => use.ingredient)
   ingredientUse: RecipeIngredientUse[];
