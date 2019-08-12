@@ -4,7 +4,9 @@ export const performLogin = gql`
   mutation performLogin($emailAddress: String!, $password: String!) {
     authenticateUser(emailAddress: $emailAddress, password: $password) {
       viewer {
-        username
+        namespace {
+          name
+        }
       }
     }
   }

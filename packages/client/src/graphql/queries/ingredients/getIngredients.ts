@@ -4,10 +4,7 @@ export const getIngredients = gql`
   query getIngredients($cursor: String) {
     allIngredients(cursor: $cursor) {
       pageInfo {
-        startCursor
-        endCursor
-        hasNextPage
-        hasPreviousPage
+        ...pageInfo
       }
       edges {
         cursor

@@ -2,7 +2,6 @@ import React from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { Router } from '@reach/router';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import { auth } from '../context/authentication';
 import { Global } from '@emotion/core';
 import Helmet from 'react-helmet';
@@ -12,6 +11,7 @@ import {
   AnonymousRoute,
   AuthenticatedRoute,
 } from '../components/AuthorisedRoute';
+import { getViewer } from '../graphql/queries/viewer/getViewer';
 
 const Home = loadable(async () => {
   const { Home } = await import('./Home');
@@ -43,9 +43,14 @@ const Register = loadable(async () => {
   return Register;
 });
 
-const User = loadable(async () => {
-  const { User } = await import('./User');
-  return User;
+const Namespace = loadable(async () => {
+  const { Namespace } = await import('./Namespace');
+  return Namespace;
+});
+
+const Teams = loadable(async () => {
+  const { Teams } = await import('./Teams');
+  return Teams;
 });
 
 const BatchesRoot = loadable(async () => {
@@ -54,15 +59,7 @@ const BatchesRoot = loadable(async () => {
 });
 
 export const FlavoristApp: React.FC = () => {
-  const { data, loading } = useQuery(gql`
-    query Auth {
-      viewer {
-        id
-        name
-        username
-      }
-    }
-  `);
+  const { data, loading } = useQuery(getViewer);
 
   return (
     <auth.Provider
@@ -96,7 +93,9 @@ export const FlavoristApp: React.FC = () => {
             <AuthenticatedRoute Component={BatchesRoot} path="batches" />
             <AnonymousRoute Component={Login} path="login" />
             <AnonymousRoute Component={Register} path="join" />
-            <User path="user/:username" />
+            <AuthenticatedRoute Component={Teams} path="teams" />
+
+            <Namespace path=":name" />
             <FourOhFour default />
           </Router>
         </div>
