@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Ingredient } from './Ingredient';
 
 @Entity()
@@ -12,6 +12,6 @@ export class Vendor {
   @Column()
   shortName: string;
 
-  @ManyToOne(() => Ingredient, (ingredient) => ingredient.vendor)
+  @OneToMany(() => Ingredient, (ingredient) => ingredient.vendor)
   ingredients: Ingredient[];
 }

@@ -10,6 +10,7 @@ import { Batch } from './Batch';
 import { User } from './User';
 import { Team } from './Team';
 import { InventoryItem } from './InventoryItem';
+import { Follower } from './Follower';
 
 export enum NamespaceType {
   User = 1,
@@ -22,8 +23,10 @@ export class Namespace {
   id: number;
 
   @Column({ type: 'enum', enum: NamespaceType })
+  type: NamespaceType;
+
   @Column({ unique: true })
-  slug: string;
+  name: string;
 
   @OneToMany(() => Recipe, (recipe) => recipe.namespace)
   recipes: Recipe[];
@@ -32,11 +35,17 @@ export class Namespace {
   batches: Batch[];
 
   @OneToOne(() => User, (user) => user.namespace)
-  user: Namespace;
+  user: User;
 
   @OneToOne(() => Team, (team) => team.namespace)
   team: Team;
 
   @OneToMany(() => InventoryItem, (item) => item.namespace)
   inventoryItems: InventoryItem[];
+
+  @OneToMany(() => Follower, (follower) => follower.follower)
+  followers: Follower[];
+
+  @OneToMany(() => Follower, (follower) => follower.user)
+  following: Follower[];
 }

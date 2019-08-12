@@ -10,6 +10,8 @@ generates:
       mappers:
         Batch: ../entity/Batch#Batch
         User: ../entity/User#User
+        Team: ../entity/Team#Team
+        Namespace: ../entity/Namespace#Namespace
         Viewer: ../entity/User#User
         Ingredient: ../entity/Ingredient#Ingredient
         Discussion: ../entity/Discussion#Discussion

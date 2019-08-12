@@ -34,6 +34,6 @@ export class IngredientLedgerEntry {
   @Column({ type: 'int' })
   cost: number;
 
-  @Column(() => User)
+  @ManyToOne(() => User)
   createdBy: User;
 }

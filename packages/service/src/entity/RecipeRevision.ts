@@ -23,6 +23,12 @@ export class RecipeRevision {
   @Column()
   revisionNumber: number;
 
+  @Column({ type: 'int' })
+  suggestedSteepHours: number;
+
+  @Column({ type: 'float' })
+  suggestedVg: number;
+
   @ManyToOne(() => Recipe, (recipe) => recipe.revisions)
   recipe: Recipe;
 

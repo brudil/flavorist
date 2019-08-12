@@ -2,6 +2,7 @@
     "compileOnSave": false,
     "compilerOptions": {
       "allowSyntheticDefaultImports": true,
+      "types": ["@emotion/core"],
       "lib": [
         "dom",
         "es2015",
@@ -26,4 +27,3 @@
       "baseUrl": "."
     }
   }
-  

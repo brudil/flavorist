@@ -3,13 +3,11 @@ import {
   CreateDateColumn,
   Entity,
   EntityRepository,
-  getRepository,
   JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   Repository,
-  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 import * as argon2 from 'argon2';
@@ -20,14 +18,10 @@ import { Namespace } from './Namespace';
 import { Batch } from './Batch';
 import { TeamMembership } from './TeamMembership';
 
-@Unique(['username'])
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  username: string;
 
   @Column({ default: '' })
   name: string;
@@ -82,28 +76,4 @@ export class User {
 }
 
 @EntityRepository(User)
-export class UserRepository extends Repository<User> {
-  public async findByEmailAddress(emailAddress: string) {
-    const emailAddressRepo = getRepository(UserEmailAddress);
-    const emailAddressEntry = await emailAddressRepo.findOne(
-      { emailAddress },
-      { relations: ['user'] },
-    );
-
-    try {
-      return emailAddressEntry && emailAddressEntry.user;
-    } catch {
-      return null;
-    }
-  }
-
-  public async findByUsername(username: string) {
-    return await this.findOne({ username });
-  }
-  //
-  // public async createUser(emailAddress: string, password: string) {
-  //   const emailAddressRepo = getRepository(UserEmailAddress);
-  //
-  //
-  // }
-}
+export class UserRepository extends Repository<User> {}

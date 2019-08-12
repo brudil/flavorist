@@ -1,7 +1,9 @@
 import { createContext } from 'react';
 
 export type UserData = null | {
-  username: string;
+  namespace: {
+    name: string;
+  };
 };
 
 export interface UserContext {

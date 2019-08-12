@@ -19,13 +19,13 @@ const LoggedIn: React.FC<{ auth: UserContext }> = ({ auth }) => {
         alt="Profile of James"
       />
       <Link
-        to={`/user/${auth.user && auth.user.username}`}
+        to={`/${auth.user && auth.user.namespace.name}`}
         css={{
           fontSize: '1.1rem',
           fontWeight: 600,
         }}
       >
-        {auth.user && (auth.user.username || auth.user.username)}
+        {auth.user && (auth.user.namespace.name || auth.user.namespace.name)}
       </Link>
       <button onClick={logout}>Logout</button>
     </SidebarContainer>
