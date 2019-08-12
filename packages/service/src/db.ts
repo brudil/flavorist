@@ -14,6 +14,7 @@ import { IngredientLedgerEntry } from './entity/IngredientLedgerEntry';
 import { Team } from './entity/Team';
 import { Namespace } from './entity/Namespace';
 import { TeamMembership } from './entity/TeamMembership';
+import { Follower } from './entity/Follower';
 
 export async function setupDb() {
   return await createConnection({
@@ -26,6 +27,7 @@ export async function setupDb() {
       BatchIngredientUse,
       Discussion,
       DiscussionComment,
+      Follower,
       Ingredient,
       IngredientLedgerEntry,
       InventoryItem,
