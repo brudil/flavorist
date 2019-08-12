@@ -1,8 +1,8 @@
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { globalHistory } from '@reach/router';
 import { decode } from 'qss';
-import { performLogin } from '../../graphql/mutations/auth/performLogin';
-import { PerformLoginMutation } from '../../generated/graphql';
+import { performLogin } from '../graphql/mutations/auth/performLogin';
+import { PerformLoginMutation } from '../generated/graphql';
 
 export const useLogin = () => {
   const { resetStore } = useApolloClient();
