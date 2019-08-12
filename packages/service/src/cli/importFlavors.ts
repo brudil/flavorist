@@ -5,15 +5,15 @@ dotenv.config();
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import { setupDb } from '../db';
-import { getRepository } from 'typeorm';
-import { Ingredient } from '../entity/Ingredient';
-import { Vendor } from '../entity/Vendor';
+import { getOrCreateVendor } from '../db/vendor';
+import { createIngredient } from '../db/ingredient';
+import * as memo from 'fast-memoize';
 
 (async () => {
   const connection = await setupDb();
 
-  const ingredientRepo = getRepository(Ingredient);
-  const vendorRepo = getRepository(Vendor);
+  // @ts-ignore
+  const getOrCreateVendorMemo = memo(getOrCreateVendor);
 
   const file = await fs.readFile(
     path.resolve(process.cwd(), '../infuser/flavors.generated.json'),
@@ -25,20 +25,8 @@ import { Vendor } from '../entity/Vendor';
   for (const flavor of data) {
     console.log(flavor);
 
-    let vendor = await vendorRepo.findOne({ shortName: flavor.vendor });
-    if (!vendor) {
-      vendor = new Vendor();
-      vendor.name = flavor.vendor;
-      vendor.shortName = flavor.vendor;
-
-      await vendorRepo.save(vendor);
-    }
-
-    const flavorEntity = new Ingredient();
-    flavorEntity.name = flavor.name;
-    flavorEntity.vendor = vendor;
-
-    await ingredientRepo.save(flavorEntity);
+    const vendor = await getOrCreateVendorMemo(flavor.vendor, flavor.vendor);
+    await createIngredient(flavor.name, vendor);
   }
 
   await connection.close();
