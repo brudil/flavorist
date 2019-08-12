@@ -2,9 +2,8 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import * as yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useMutation } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import Helmet from 'react-helmet';
+import { useJoin } from '../hooks/join';
 
 const loginSchema = yup.object({
   emailAddress: yup.string().email(),
@@ -15,35 +14,23 @@ const loginSchema = yup.object({
 // type LoginData = yup.InferType<typeof loginSchema>;
 
 export const Register: React.FC<RouteComponentProps> = () => {
-  const [login] = useMutation(gql`
-    mutation Register(
-      $emailAddress: String!
-      $username: String!
-      $password: String!
-    ) {
-      createUser(
-        emailAddress: $emailAddress
-        username: $username
-        password: $password
-      ) {
-        viewer {
-          name
-        }
-      }
-    }
-  `);
+  const join = useJoin();
 
   return (
     <div>
       <Helmet title="Join" />
 
-      <h1>Log in</h1>
+      <h1>Join</h1>
 
       <Formik
         initialValues={{ emailAddress: '', username: '', password: '' }}
         validationSchema={loginSchema}
         onSubmit={async (values, { setSubmitting }) => {
-          const res = await login({ variables: values });
+          const res = await join(
+            values.emailAddress,
+            values.username,
+            values.password,
+          );
           console.log(res);
           setSubmitting(false);
         }}
