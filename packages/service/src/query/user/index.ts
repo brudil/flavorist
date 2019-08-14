@@ -1,19 +1,11 @@
 import { Resolvers } from '../../generated/graphql';
-import { User } from '../../entity/User';
+import { User } from '../../model/User';
 import { getTeamsForUser } from '../../db/teams';
 
 export const userQuery: Resolvers = {
   Query: {
-    viewer: async (
-      _parent,
-      _,
-      {
-        server: {
-          request: { auth },
-        },
-      },
-    ) => {
-      return auth.credentials;
+    viewer: async (_parent, _, { auth }) => {
+      return auth;
     },
   },
   User: {

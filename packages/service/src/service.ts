@@ -1,21 +1,25 @@
 import 'reflect-metadata';
-import * as dotenv from 'dotenv';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
-import * as Hapi from '@hapi/hapi';
-import { setupDb } from './db';
+import Hapi from '@hapi/hapi';
+import './db';
 import { ApolloServer } from 'apollo-server-hapi';
 import { schema } from './schema/schema';
-import { getCustomRepository } from 'typeorm';
-import { UserRepository } from './entity/User';
+import { getViewer } from './db/user';
+import { createDebuggie } from './libs/debuggie';
+import { createLoaders } from './loaders';
+
+const log = createDebuggie('server');
 
 const init = async () => {
-  await setupDb();
   const server = new ApolloServer({
     schema,
-    context: (request) => ({
-      server: request,
+    context: (r) => ({
+      request: r.request,
+      auth: r.request.auth.credentials,
+      loaders: createLoaders(),
     }),
   });
 
@@ -37,17 +41,17 @@ const init = async () => {
     },
     redirectTo: false,
     validateFunc: async (_request: unknown, session: any) => {
-      const userRepo = getCustomRepository(UserRepository);
+      try {
+        const account = await getViewer(session.id);
+        if (!account) {
+          return { valid: false };
+        }
 
-      const account = await userRepo.findOne(session.id, {
-        relations: ['namespace'],
-      });
-
-      if (!account) {
+        return { valid: true, credentials: account };
+      } catch (e) {
+        log.error(e);
         return { valid: false };
       }
-
-      return { valid: true, credentials: account };
     },
   });
 
@@ -60,11 +64,11 @@ const init = async () => {
   await server.installSubscriptionHandlers(app.listener);
 
   await app.start();
-  console.log(`Server running on ${app.info.uri}`);
+  log.debug(`Server running on ${app.info.uri}`);
 };
 
 process.on('unhandledRejection', (err) => {
-  console.log(err);
+  log.error(err);
   process.exit(1);
 });
 

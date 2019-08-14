@@ -3,12 +3,12 @@ import ErrorBoundary from 'react-error-boundary';
 import Helmet from 'react-helmet';
 import { isRedirect } from '@reach/router';
 
-const AppCrashErrorBoundaryContent = () => {
+const ViewCrashErrorBoundaryContent = () => {
   return (
     <div css={{ textAlign: 'center', padding: '2rem' }}>
       <Helmet title="Error" />
-      <h2>Something went wrong!</h2>
-      <p>We'll look in to this.</p>
+      <h2>This can't be displayed right now</h2>
+      <p>Apologies about this</p>
     </div>
   );
 };
@@ -21,10 +21,10 @@ function onError(error: Error) {
   }
 }
 
-export const AppCrashErrorBoundary: React.FC = ({ children }) => {
+export const ViewCrashErrorBoundary: React.FC = ({ children }) => {
   return (
     <ErrorBoundary
-      FallbackComponent={AppCrashErrorBoundaryContent}
+      FallbackComponent={ViewCrashErrorBoundaryContent}
       onError={onError}
     >
       {children}

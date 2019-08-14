@@ -1,15 +1,10 @@
-import { Vendor } from '../entity/Vendor';
-import { Ingredient } from '../entity/Ingredient';
-import { getConnection } from 'typeorm';
-import { createDiscussion } from './discussion';
+import { Ingredient, IngredientType } from '../model/Ingredient';
+import { Vendor } from '../model/Vendor';
 
-export async function createIngredient(name: string, vendor: Vendor) {
-  const connection = getConnection();
-
-  const flavorEntity = new Ingredient();
-  flavorEntity.name = name;
-  flavorEntity.vendor = vendor;
-  flavorEntity.publicDiscussion = await createDiscussion();
-
-  await connection.getRepository(Ingredient).save(flavorEntity);
+export async function createFlavor(name: string, vendor: Vendor) {
+  await Ingredient.query().insert({
+    name,
+    vendorId: vendor.id,
+    type: IngredientType.Flavor,
+  });
 }

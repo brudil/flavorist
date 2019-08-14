@@ -68,9 +68,9 @@ export const Sidebar: React.FC = () => {
           `}
         >
           <Section>Explore</Section>
-          <MenuItem href="/explore/recipes">Recipes</MenuItem>
-          <MenuItem href="/explore/ingredients">Ingredients</MenuItem>
-          <MenuItem href="/explore/users">Flavorists</MenuItem>
+          <MenuItem href="/recipes">Recipes</MenuItem>
+          <MenuItem href="/ingredients">Ingredients</MenuItem>
+          <MenuItem href="/users">Flavorists</MenuItem>
           {authData.user !== null && (
             <React.Fragment>
               <Section>My</Section>

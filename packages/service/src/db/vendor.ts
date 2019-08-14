@@ -1,18 +1,16 @@
-import { Vendor } from '../entity/Vendor';
-import { getConnection } from 'typeorm';
+import { Vendor } from '../model/Vendor';
+import { ID } from '../model/Base';
 
 export async function getOrCreateVendor(name: string, shortName: string) {
-  const connection = getConnection();
-  const vendorRepo = connection.getRepository(Vendor);
+  let vendor = await Vendor.query().findOne({ shortName });
 
-  let vendor = await vendorRepo.findOne({ shortName });
   if (!vendor) {
-    vendor = new Vendor();
-    vendor.name = name;
-    vendor.shortName = shortName;
-
-    return await vendorRepo.save(vendor);
+    return await Vendor.query().insert({ name, shortName });
   }
 
   return vendor;
+}
+
+export async function getVendorsById(ids: ID[]) {
+  return Vendor.query().whereIn('id', ids);
 }

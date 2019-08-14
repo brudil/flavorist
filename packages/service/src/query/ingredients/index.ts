@@ -1,24 +1,23 @@
 import { Resolvers } from '../../generated/graphql';
-import { getRepository } from 'typeorm';
-import { Ingredient } from '../../entity/Ingredient';
+import { Ingredient } from '../../model/Ingredient';
 import { createConnection } from '../../libs/createConnection';
 
 export const ingredientQuery: Resolvers = {
   Query: {
     allIngredients: async (_parent, { cursor, first, last }) => {
-      const ingredientRepo = getRepository(Ingredient);
-
       const connection = createConnection({ first, cursor, last });
 
-      console.log(connection.args());
-      const ingredients = await ingredientRepo.find({
-        relations: ['vendor'],
-        order: { name: 'ASC' },
-        ...connection.args(),
-      });
+      const ingredients = await Ingredient.query()
+        .orderBy('name')
+        .limit(connection.args().take)
+        .offset(connection.args().skip);
 
       return connection.payload(ingredients);
     },
   },
-  Ingredient: {},
+  Ingredient: {
+    vendor: async (ingredient, _args, { loaders }) => {
+      return await loaders.vendor.id.load(ingredient.vendorId);
+    },
+  },
 };

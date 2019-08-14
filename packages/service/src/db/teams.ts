@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm';
-import { User } from '../entity/User';
-import { TeamMembership } from '../entity/TeamMembership';
+import { User } from '../model/User';
+import { TeamMembership } from '../model/TeamMembership';
 
 export async function getTeamsForUser(user: User) {
   await getRepository(TeamMembership)

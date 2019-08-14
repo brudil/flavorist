@@ -1,8 +1,5 @@
-import { getConnection } from 'typeorm';
-import { Discussion } from '../entity/Discussion';
+import { Discussion } from '../model/Discussion';
 
 export async function createDiscussion() {
-  return getConnection()
-    .getRepository(Discussion)
-    .save({});
+  return await Discussion.query().insert({});
 }

@@ -1,13 +1,15 @@
 import { Resolvers } from '../../generated/graphql';
-import { decodeId, encodeId } from '../../libs/globalId';
+import { createDebuggie } from '../../libs/debuggie';
+const log = createDebuggie('resolvers:node');
 
 export const nodeInterface: Resolvers = {
   Node: {
     __resolveType(node) {
-      return decodeId(node.id).typename as any;
+      log.debug(node);
+      throw new Error('time to implement resolve type');
     },
     id(entity: any) {
-      return encodeId(entity.constructor.name, entity.id);
+      return entity.id;
     },
   },
 };

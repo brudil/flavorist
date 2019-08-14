@@ -23,9 +23,14 @@ const Explore = loadable(async () => {
   return Explore;
 });
 
-const ExploreIngredients = loadable(async () => {
-  const { ExploreIngredients } = await import('./ExploreIngredients');
-  return ExploreIngredients;
+const Ingredients = loadable(async () => {
+  const { Ingredients } = await import('./Ingredients');
+  return Ingredients;
+});
+
+const Ingredient = loadable(async () => {
+  const { Ingredient } = await import('./Ingredient');
+  return Ingredient;
 });
 
 const FourOhFour = loadable(async () => {
@@ -56,6 +61,16 @@ const Teams = loadable(async () => {
 const BatchesRoot = loadable(async () => {
   const { BatchesRoot } = await import('./BatchesRoot');
   return BatchesRoot;
+});
+
+const RecipesLibrary = loadable(async () => {
+  const { RecipesLibrary } = await import('./RecipesLibrary');
+  return RecipesLibrary;
+});
+
+const InventoryLibrary = loadable(async () => {
+  const { InventoryLibrary } = await import('./InventoryLibrary');
+  return InventoryLibrary;
 });
 
 export const FlavoristApp: React.FC = () => {
@@ -89,11 +104,14 @@ export const FlavoristApp: React.FC = () => {
           <Router>
             <Home path="/" />
             <Explore path="explore" />
-            <ExploreIngredients path="explore/ingredients" />
+            <Ingredients path="ingredients" />
+            <Ingredient path="ingredients/:vendorShortName/:id" />
             <AuthenticatedRoute Component={BatchesRoot} path="batches" />
             <AnonymousRoute Component={Login} path="login" />
             <AnonymousRoute Component={Register} path="join" />
             <AuthenticatedRoute Component={Teams} path="teams" />
+            <AuthenticatedRoute Component={RecipesLibrary} path="recipes" />
+            <AuthenticatedRoute Component={InventoryLibrary} path="inventory" />
 
             <Namespace path=":name" />
             <FourOhFour default />

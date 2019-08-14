@@ -7,15 +7,16 @@ generates:
       - "typescript"
       - "typescript-resolvers"
     config:
+      contextType: ../types/context#Context
       mappers:
-        Batch: ../entity/Batch#Batch
-        User: ../entity/User#User
-        Team: ../entity/Team#Team
-        Namespace: ../entity/Namespace#Namespace
-        Viewer: ../entity/User#User
-        Ingredient: ../entity/Ingredient#Ingredient
-        Discussion: ../entity/Discussion#Discussion
-        DiscussionComment: ../entity/Discussion#DiscussionComment
+        Batch: ../model/Batch#Batch
+        User: ../model/User#User
+        Team: ../model/Team#Team
+        Namespace: ../model/Namespace#Namespace
+        Viewer: ../model/User#User
+        Ingredient: ../model/Ingredient#Ingredient
+        Discussion: ../model/Discussion#Discussion
+        DiscussionComment: ../model/Discussion#DiscussionComment
   ./packages/client/src/generated/graphql.ts:
       plugins:
         - "typescript"

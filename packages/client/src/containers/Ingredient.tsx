@@ -5,8 +5,12 @@ import { useQuery } from '@apollo/react-hooks';
 import { getIngredient } from '../graphql/queries/ingredients/getIngredient';
 import { GetIngredientQuery } from '../generated/graphql';
 
-export const Ingredient: React.FC<RouteComponentProps> = () => {
-  const { data, error, loading } = useQuery<GetIngredientQuery>(getIngredient);
+export const Ingredient: React.FC<RouteComponentProps<{ id: string }>> = ({
+  id,
+}) => {
+  const { data, error, loading } = useQuery<GetIngredientQuery>(getIngredient, {
+    variables: { id },
+  });
 
   return (
     <div>

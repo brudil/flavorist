@@ -6,12 +6,12 @@ interface ConnectionArgs {
   last?: number | null;
 }
 
-const encodeCursor = (id: number, offset: number) => encode(`${id}/${offset}`);
+const encodeCursor = (id: string, offset: number) => encode(`${id}/${offset}`);
 const decodeCursor = (cursor: string) => {
   const parts = decode(cursor).split('/');
 
   return {
-    id: parseInt(parts[0], 10),
+    id: parts[0],
     offset: parseInt(parts[1], 10),
   };
 };
@@ -22,7 +22,7 @@ export function createConnection({ first, last, cursor }: ConnectionArgs) {
   const take = first || last || 30;
 
   return {
-    payload<E>(items: (E & { id: number })[]) {
+    payload<E>(items: (E & { id: string })[]) {
       const edges = items.map((item, index) => ({
         node: item,
         cursor: encodeCursor(item.id, previousCursor.offset + index + 1),
@@ -35,12 +35,12 @@ export function createConnection({ first, last, cursor }: ConnectionArgs) {
         pageInfo: {
           hasNextPage,
           hasPreviousPage: previousCursor.offset > 0,
-          startCursor: edges[0].cursor,
-          endCursor: edges[items.length - 1].cursor,
+          startCursor: edges.length > 0 ? edges[0].cursor : null,
+          endCursor: edges.length > 0 ? edges[items.length - 1].cursor : null,
         },
       };
     },
-    args(): { take?: number; skip: number } {
+    args(): { take: number; skip: number } {
       return {
         take: take + 1,
         skip: previousCursor.offset,

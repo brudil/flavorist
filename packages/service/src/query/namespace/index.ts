@@ -1,18 +1,13 @@
 import { Resolvers } from '../../generated/graphql';
-import { getRepository } from 'typeorm';
-import { Namespace } from '../../entity/Namespace';
-import { Team } from '../../entity/Team';
-import { User } from '../../entity/User';
+import { Namespace } from '../../model/Namespace';
+import { Team } from '../../model/Team';
+import { User } from '../../model/User';
+import { getNamespaceOwner } from '../../db/user';
 
 export const namespaceQuery: Resolvers = {
   Query: {
     namespace: async (_parent, { name }) => {
-      const namespaceRepo = getRepository(Namespace);
-
-      const namespace = await namespaceRepo.findOne(
-        { name },
-        { relations: ['user', 'team'] },
-      );
+      const namespace = await Namespace.query().findOne({ name });
 
       if (!namespace) {
         throw Error('404');
@@ -22,8 +17,14 @@ export const namespaceQuery: Resolvers = {
     },
   },
   Namespace: {
-    owner(entity: Namespace) {
-      return entity.user || entity.team;
+    owner: async (entity: Namespace) => {
+      const owner = await getNamespaceOwner(entity);
+
+      if (!owner) {
+        throw new Error('missing owner');
+      }
+
+      return owner;
     },
   },
   NamespaceOwner: {

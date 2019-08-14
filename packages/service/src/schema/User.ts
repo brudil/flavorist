@@ -15,7 +15,7 @@ export const UserSchema = gql`
 
   type Viewer implements DatedEntity & Node {
     id: ID!
-    name: String!
+    name: String
 
     namespace: Namespace
 

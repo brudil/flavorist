@@ -1,17 +1,16 @@
 import 'reflect-metadata';
-import * as dotenv from 'dotenv';
+import dotenv from 'dotenv';
 
 dotenv.config();
 import { promises as fs } from 'fs';
-import * as path from 'path';
-import { setupDb } from '../db';
+import path from 'path';
+import '../db';
 import { getOrCreateVendor } from '../db/vendor';
-import { createIngredient } from '../db/ingredient';
-import * as memo from 'fast-memoize';
+import { createFlavor } from '../db/ingredient';
+import memo from 'fast-memoize';
+import { knex } from '../db';
 
 (async () => {
-  const connection = await setupDb();
-
   // @ts-ignore
   const getOrCreateVendorMemo = memo(getOrCreateVendor);
 
@@ -26,8 +25,8 @@ import * as memo from 'fast-memoize';
     console.log(flavor);
 
     const vendor = await getOrCreateVendorMemo(flavor.vendor, flavor.vendor);
-    await createIngredient(flavor.name, vendor);
+    await createFlavor(flavor.name, vendor);
   }
 
-  await connection.close();
+  await knex.destroy();
 })();

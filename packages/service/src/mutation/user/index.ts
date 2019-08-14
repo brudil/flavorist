@@ -1,45 +1,50 @@
 import { Resolvers } from '../../generated/graphql';
 import { AuthenticationError } from 'apollo-server-errors';
-import { createUser, findUserByEmailAddress } from '../../db/user';
+import {
+  createUser,
+  findUserByEmailAddress,
+  authenticate,
+  getViewer,
+} from '../../db/user';
+import { parseResolveInfo } from 'graphql-parse-resolve-info';
 
 export const userMutation: Resolvers = {
   Mutation: {
     async createUser(
       _parent,
       { emailAddress, username, password },
-      { server: { request } },
+      { request },
+      res,
     ) {
+      console.log(parseResolveInfo(res));
+      console.log(parseResolveInfo(res, {}));
+
       try {
         const user = await createUser(username, password, emailAddress);
 
-        console.log(request);
-        request.cookieAuth.set({ id: user.id });
+        console.log(user);
+        request.cookieAuth.set({ id: user!.id });
         return {
-          viewer: user,
+          viewer: await getViewer(user!.id),
         };
       } catch (e) {
         console.error(e);
         throw new Error('failed to create user');
       }
     },
-    async authenticateUser(
-      _parent,
-      { emailAddress, password },
-      { server: { request } },
-    ) {
+    async authenticateUser(_parent, { emailAddress, password }, { request }) {
       const user = await findUserByEmailAddress(emailAddress);
 
-      if (user && (await user.authenticate(password))) {
+      if (user && (await authenticate(password, user.passwordHash))) {
         request.cookieAuth.set({ id: user.id });
         return {
           viewer: user,
-          token: user.generateToken(),
         };
       }
 
       throw new AuthenticationError('credentials are incorrect');
     },
-    async logout(_, _x, { server: { request } }) {
+    async logout(_, _x, { request }) {
       request.cookieAuth.clear();
       return { success: true };
     },
