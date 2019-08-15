@@ -12,7 +12,11 @@ const createValidatedRoute = (
   redirect: (props: RouteComponentProps) => string,
 ): React.FC<AuthorisedRouteProps & RouteComponentProps> => {
   return ({ Component, ...props }) => {
-    const { user } = useContext(auth);
+    const { user, isLoading } = useContext(auth);
+
+    if (isLoading) {
+      return null;
+    }
 
     if (validate(user)) {
       return <Redirect to={redirect(props)} noThrow />;
