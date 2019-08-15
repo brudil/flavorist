@@ -63,6 +63,11 @@ const BatchesRoot = loadable(async () => {
   return BatchesRoot;
 });
 
+const New = loadable(async () => {
+  const { New } = await import('./New');
+  return New;
+});
+
 const RecipesLibrary = loadable(async () => {
   const { RecipesLibrary } = await import('./RecipesLibrary');
   return RecipesLibrary;
@@ -109,6 +114,7 @@ export const FlavoristApp: React.FC = () => {
             <AuthenticatedRoute Component={BatchesRoot} path="batches" />
             <AnonymousRoute Component={Login} path="login" />
             <AnonymousRoute Component={Register} path="join" />
+            <AuthenticatedRoute Component={New} path="new" />
             <AuthenticatedRoute Component={Teams} path="teams" />
             <AuthenticatedRoute Component={RecipesLibrary} path="recipes" />
             <AuthenticatedRoute Component={InventoryLibrary} path="inventory" />
