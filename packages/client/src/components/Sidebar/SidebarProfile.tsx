@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { COLORS } from '../style/constants';
+import { COLORS } from '../../style/constants';
 import { SidebarContainer } from './SidebarContainer';
-import { auth, UserContext } from '../context/authentication';
+import { auth, UserContext } from '../../context/authentication';
 import { Link } from '@reach/router';
-import { useLogout } from '../hooks/logout';
+import { useLogout } from '../../hooks/logout';
 
 const LoggedIn: React.FC<{ auth: UserContext }> = ({ auth }) => {
   const logout = useLogout();
