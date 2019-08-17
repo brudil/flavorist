@@ -16,10 +16,9 @@ export const Ingredient: React.FC<RouteComponentProps<{ id: string }>> = ({
     <div>
       <Helmet title="404" />
       <h1>Ingredients</h1>
-
-      <ul>
-        {(!loading || error) && data && data.ingredient ? <h1>Hey</h1> : null}
-      </ul>
+      {(!loading || error) && data && data.ingredient ? (
+        <h1>{data.ingredient.name}</h1>
+      ) : null}
     </div>
   );
 };

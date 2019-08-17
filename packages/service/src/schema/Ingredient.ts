@@ -5,6 +5,7 @@ export const IngredientSchema = gql`
     id: ID!
     name: String
     vendor: Vendor
+    inventoryItemsOfViewer: [InventoryItem]
   }
 
   type InventoryItem implements Node {
@@ -27,17 +28,23 @@ export const IngredientSchema = gql`
     cursor: String
   }
 
-  type AllIngredientsConnection implements Connection {
+  type IngredientsConnection implements Connection {
     edges: [IngredientEdge]!
     pageInfo: PageInfo!
   }
 
   extend type Query {
     ingredient(id: ID!): Ingredient!
+    searchIngredients(
+      query: String!
+      cursor: String
+      first: Int
+      last: Int
+    ): IngredientsConnection
     allIngredients(
       cursor: String
       first: Int
       last: Int
-    ): AllIngredientsConnection!
+    ): IngredientsConnection!
   }
 `;

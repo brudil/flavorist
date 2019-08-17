@@ -81,8 +81,6 @@ export const createApolloKeyMapper = (config: Config) => {
               Object.values(args[0].result).forEach((value: any) => {
                 perform(value);
               });
-
-              console.log('write to cache!', keyMap);
             },
             { timeout: 400 },
           );

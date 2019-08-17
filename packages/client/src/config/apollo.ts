@@ -34,6 +34,9 @@ export async function setupApolloClient() {
         user(_, obj) {
           return keyMap.try(obj);
         },
+        ingredient(_, args, { getCacheKey }) {
+          return getCacheKey({ id: args.id, __typename: 'Ingredient' });
+        },
       },
     },
   });
