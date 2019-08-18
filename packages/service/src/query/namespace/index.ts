@@ -3,6 +3,7 @@ import { Namespace } from '../../model/Namespace';
 import { Team } from '../../model/Team';
 import { User } from '../../model/User';
 import { getNamespaceOwner } from '../../db/user';
+import { Recipe } from '../../model/Recipe';
 
 export const namespaceQuery: Resolvers = {
   Query: {
@@ -25,6 +26,9 @@ export const namespaceQuery: Resolvers = {
       }
 
       return owner;
+    },
+    recipes: async (namespace: Namespace) => {
+      return await Recipe.query().where({ namespaceId: namespace.id });
     },
   },
   NamespaceOwner: {

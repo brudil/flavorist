@@ -1,6 +1,7 @@
 import { Resolvers } from '../../generated/graphql';
 import { User } from '../../model/User';
 import { getTeamsForUser } from '../../db/teams';
+import { Recipe } from '../../model/Recipe';
 
 export const userQuery: Resolvers = {
   Query: {
@@ -16,6 +17,13 @@ export const userQuery: Resolvers = {
       return {
         pageInfo: null as any,
       };
+    },
+  },
+  Viewer: {
+    recipes: async (_parent, _, viewer) => {
+      return await Recipe.query().where({
+        namespaceId: viewer.auth.namespace.id,
+      });
     },
   },
 };

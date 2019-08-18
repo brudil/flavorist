@@ -23,6 +23,7 @@ export const UserSchema = gql`
     updatedAt: String
 
     teamsConnection: TeamsConnection
+    recipes: [Recipe]
   }
 
   type UserAuthorisation {

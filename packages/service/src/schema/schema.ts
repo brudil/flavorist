@@ -17,6 +17,7 @@ import { NamespaceSchema } from './Namespace';
 import { namespaceQuery } from '../query/namespace';
 import { teamQuery } from '../query/team';
 import { recipeMutation } from '../mutation/recipe';
+import { recipeQuery } from '../query/recipe';
 
 const resolvers = merge(
   {},
@@ -29,6 +30,7 @@ const resolvers = merge(
   ingredientQuery,
   namespaceQuery,
   teamQuery,
+  recipeQuery,
 
   // Mutations!
   userMutation,

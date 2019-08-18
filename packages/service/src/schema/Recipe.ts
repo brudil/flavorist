@@ -9,7 +9,7 @@ export const RecipeSchema = gql`
 
   type Recipe implements DatedEntity & Node {
     id: ID!
-    user: User
+    namespace: Namespace
     revisions: [RecipeRevision]
     latestRevision: RecipeRevision
     visibility: RecipeVisibility
@@ -25,7 +25,7 @@ export const RecipeSchema = gql`
   type RecipeRevision implements DatedEntity & Node {
     id: ID!
     name: String
-    ingredients: [IngredientUse]
+    ingredients: [RecipeIngredientUse]
     revisionNumber: Int
     recipe: Recipe
     latestRevision: RecipeRevision
@@ -35,7 +35,7 @@ export const RecipeSchema = gql`
     updatedAt: String
   }
 
-  type IngredientUse implements Node {
+  type RecipeIngredientUse implements Node {
     id: ID!
     ingredient: Ingredient
     percentage: Int
@@ -48,7 +48,7 @@ export const RecipeSchema = gql`
 
   input CreateRecipeInput {
     name: String!
-    ingredients: [IngredientUseInput]!
+    ingredients: [IngredientUseInput!]!
   }
 
   input UpdateRecipeInput {

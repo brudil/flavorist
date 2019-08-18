@@ -14,6 +14,9 @@ generates:
         Team: ../model/Team#Team
         Namespace: ../model/Namespace#Namespace
         Viewer: ../model/User#User
+        Recipe: ../model/Recipe#Recipe
+        RecipeIngredientUse: ../model/RecipeIngredientUse#RecipeIngredientUse
+        RecipeRevision: ../model/RecipeRevision#RecipeRevision
         Ingredient: ../model/Ingredient#Ingredient
         Discussion: ../model/Discussion#Discussion
         DiscussionComment: ../model/Discussion#DiscussionComment
