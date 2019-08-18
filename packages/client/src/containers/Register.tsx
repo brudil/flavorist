@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import * as yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useJoin } from '../hooks/join';
 
 const loginSchema = yup.object({

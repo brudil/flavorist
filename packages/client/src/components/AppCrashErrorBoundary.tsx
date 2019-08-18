@@ -1,6 +1,6 @@
 import React from 'react';
 import ErrorBoundary from 'react-error-boundary';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { isRedirect } from '@reach/router';
 
 const AppCrashErrorBoundaryContent = () => {

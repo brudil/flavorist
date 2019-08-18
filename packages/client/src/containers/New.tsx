@@ -3,12 +3,14 @@ import { RouteComponentProps } from '@reach/router';
 import { IngredientSelector } from '../components/IngredientSelector';
 import { useRecipeMixer } from '../hooks/recipeBatcher';
 import { IngredientRowEditable } from '../components/IngredientRowEditable';
+import { Helmet } from 'react-helmet-async';
 
 export const New: React.FC<RouteComponentProps> = () => {
   const [state, dispatch] = useRecipeMixer();
 
   return (
     <div>
+      <Helmet title="New" />
       <h1>New</h1>
 
       <div>

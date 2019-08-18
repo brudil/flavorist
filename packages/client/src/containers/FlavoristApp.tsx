@@ -4,7 +4,7 @@ import { Router } from '@reach/router';
 import { useQuery } from '@apollo/react-hooks';
 import { auth } from '../context/authentication';
 import { Global } from '@emotion/core';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import loadable from '@loadable/component';
 import { BrandedHeadContent } from '../components/BrandedHeadContent';
 import {

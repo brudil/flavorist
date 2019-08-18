@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 
 import { useLogin } from '../hooks/login';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { type, TypeSize } from '../style/type';
 
 const loginSchema = yup.object({

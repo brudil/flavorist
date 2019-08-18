@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from '@reach/router';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 export const FourOhFour: React.FC<RouteComponentProps> = () => {
   return (

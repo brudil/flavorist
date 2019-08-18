@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from '@reach/router';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useQuery } from '@apollo/react-hooks';
 import { getIngredient } from '../graphql/queries/ingredients/getIngredient';
 import { GetIngredientQuery } from '../generated/graphql';
@@ -14,10 +14,12 @@ export const Ingredient: React.FC<RouteComponentProps<{ id: string }>> = ({
 
   return (
     <div>
-      <Helmet title="404" />
       <h1>Ingredients</h1>
       {(!loading || error) && data && data.ingredient ? (
-        <h1>{data.ingredient.name}</h1>
+        <div>
+          <Helmet title={data.ingredient.name || ''} />
+          <h1>{data.ingredient.name}</h1>
+        </div>
       ) : null}
     </div>
   );
