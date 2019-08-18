@@ -78,6 +78,11 @@ const InventoryLibrary = loadable(async () => {
   return InventoryLibrary;
 });
 
+const Recipe = loadable(async () => {
+  const { Recipe } = await import('./Recipe');
+  return Recipe;
+});
+
 export const FlavoristApp: React.FC = () => {
   const { data, loading } = useQuery(getViewer);
 
@@ -120,6 +125,7 @@ export const FlavoristApp: React.FC = () => {
             <AuthenticatedRoute Component={InventoryLibrary} path="inventory" />
 
             <Namespace path=":name" />
+            <Recipe path=":name/:recipeId" />
             <FourOhFour default />
           </Router>
         </div>
