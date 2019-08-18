@@ -16,6 +16,7 @@ import { TeamSchema } from './Team';
 import { NamespaceSchema } from './Namespace';
 import { namespaceQuery } from '../query/namespace';
 import { teamQuery } from '../query/team';
+import { recipeMutation } from '../mutation/recipe';
 
 const resolvers = merge(
   {},
@@ -31,6 +32,7 @@ const resolvers = merge(
 
   // Mutations!
   userMutation,
+  recipeMutation,
 );
 
 export const schema = makeExecutableSchema({

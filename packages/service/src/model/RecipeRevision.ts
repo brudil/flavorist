@@ -2,8 +2,9 @@ import { Batch } from './Batch';
 import { Recipe } from './Recipe';
 import { RecipeIngredientUse } from './RecipeIngredientUse';
 import { User } from './User';
-import { BaseModel } from './Base';
+import { BaseModel, ID } from './Base';
 import { IsDecimal, IsInt, IsString, Max, Min } from 'class-validator';
+import { Model } from 'objection';
 
 export class RecipeRevision extends BaseModel {
   static get tableName() {
@@ -24,15 +25,48 @@ export class RecipeRevision extends BaseModel {
   @Max(1)
   suggestedVg: number;
 
+  shakeAndVapable: boolean;
+
   recipe: Recipe;
+  recipeId: ID;
 
   ingredients: RecipeIngredientUse[];
 
   batches: Batch[];
 
-  createdAt: Date;
+  createdAt: string;
 
-  updatedAt: Date;
+  updatedAt: string;
 
   createdBy: User;
+  createdById: ID;
+
+  static get relationMappings() {
+    return {
+      recipe: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Recipe,
+        join: {
+          from: 'recipeRevision.recipeId',
+          to: 'recipe.id',
+        },
+      },
+      ingredients: {
+        relation: Model.HasManyRelation,
+        modelClass: RecipeIngredientUse,
+        join: {
+          from: 'recipeRevision.id',
+          to: 'recipeIngredientUse.recipeRevisionId',
+        },
+      },
+      createdBy: {
+        relation: Model.HasOneRelation,
+        modelClass: User,
+        join: {
+          from: 'recipeRevision.createdById',
+          to: 'user.id',
+        },
+      },
+    };
+  }
 }

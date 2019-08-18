@@ -1,12 +1,38 @@
 import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { IngredientSelector } from '../components/IngredientSelector';
-import { useRecipeMixer } from '../hooks/recipeBatcher';
+import {
+  CreationMode,
+  RecipeMixerState,
+  useRecipeMixer,
+} from '../hooks/recipeBatcher';
 import { IngredientRowEditable } from '../components/IngredientRowEditable';
 import { Helmet } from 'react-helmet-async';
+import { useMutation } from '@apollo/react-hooks';
+import { createRecipe } from '../graphql/mutations/recipe/createRecipe';
+import {
+  CreateRecipeInput,
+  CreateRecipeMutation,
+  CreateRecipeMutationVariables,
+} from '../generated/graphql';
+
+const convertStateToInput = (state: RecipeMixerState): CreateRecipeInput => {
+  return {
+    name: 'example recipe',
+    ingredients: state.ingredients.map((id) => ({
+      ingredientId: id,
+      percentage: state.recipeUses[id].percentage * 1000,
+    })),
+  };
+};
 
 export const New: React.FC<RouteComponentProps> = () => {
   const [state, dispatch] = useRecipeMixer();
+
+  const [perform] = useMutation<
+    CreateRecipeMutation,
+    CreateRecipeMutationVariables
+  >(createRecipe);
 
   return (
     <div>
@@ -27,7 +53,7 @@ export const New: React.FC<RouteComponentProps> = () => {
             <IngredientRowEditable
               key={id}
               id={id}
-              percentage={state.uses[id].percentage}
+              percentage={state.recipeUses[id].percentage}
               onRemove={() =>
                 dispatch({
                   type: 'DELETE_INGREDIENT',
@@ -45,7 +71,29 @@ export const New: React.FC<RouteComponentProps> = () => {
         </tbody>
       </table>
 
-      <button>Create Recipe</button>
+      <div>
+        Flavoring:{' '}
+        {Object.values(state.recipeUses).reduce(
+          (val, use) => val + use.percentage,
+          0,
+        )}
+        %
+      </div>
+
+      <aside>
+        Live mixing:{' '}
+        <button onClick={() => dispatch({ type: 'TOGGLE_LIVE_MIXING' })}>
+          {state.mode === CreationMode.LIVE ? 'On' : 'Off'}
+        </button>
+      </aside>
+
+      <button
+        onClick={() =>
+          perform({ variables: { input: convertStateToInput(state) } })
+        }
+      >
+        Create Recipe
+      </button>
     </div>
   );
 };

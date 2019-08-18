@@ -57,8 +57,8 @@ export const RecipeSchema = gql`
   }
 
   extend type Mutation {
-    createRecipe(recipe: CreateRecipeInput): MutationResponse
-    updateRecipe(recipe: UpdateRecipeInput): MutationResponse
+    createRecipe(recipe: CreateRecipeInput!): MutationResponse
+    updateRecipe(recipe: UpdateRecipeInput!): MutationResponse
   }
 
   extend type Query {

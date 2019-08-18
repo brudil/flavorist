@@ -1,7 +1,8 @@
 import { RecipeRevision } from './RecipeRevision';
 import { Namespace } from './Namespace';
 import { User } from './User';
-import { BaseModel } from './Base';
+import { BaseModel, ID } from './Base';
+import { Model } from 'objection';
 
 enum RecipeVisibility {
   Public = 'PUBLIC',
@@ -15,12 +16,16 @@ export class Recipe extends BaseModel {
   }
 
   namespace: Namespace;
+  namespaceId: ID;
 
   createdBy: User;
+  createdById: ID;
 
   totalRevisions: number;
 
   revisions: RecipeRevision[];
+  latestRevision: RecipeRevision;
+  latestRevisionId: ID;
 
   remixOf: Recipe;
 
@@ -30,9 +35,30 @@ export class Recipe extends BaseModel {
 
   visibility: RecipeVisibility;
 
-  createdAt: Date;
+  createdAt: string;
 
-  updatedAt: Date;
+  updatedAt: string;
 
   publicDiscussion: number;
+
+  static get relationMappings() {
+    return {
+      namespace: {
+        relation: Model.HasOneRelation,
+        modelClass: Namespace,
+        join: {
+          from: 'recipe.namespaceId',
+          to: 'namespace.id',
+        },
+      },
+      revisions: {
+        relation: Model.HasManyRelation,
+        modelClass: RecipeRevision,
+        join: {
+          from: 'recipe.id',
+          to: 'recipeRevision.recipeId',
+        },
+      },
+    };
+  }
 }

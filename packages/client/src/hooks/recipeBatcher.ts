@@ -1,12 +1,23 @@
-import { Reducer, useReducer } from 'react';
+import { Dispatch, Reducer, useReducer } from 'react';
 import produce from 'immer';
 
-interface State {
+export enum CreationMode {
+  RECIPE,
+  LIVE,
+  BATCH,
+}
+
+export interface RecipeMixerState {
   ingredients: string[];
-  liveMixing: boolean;
-  uses: {
+  mode: CreationMode;
+  recipeUses: {
     [id: string]: {
       percentage: number;
+    };
+  };
+  batchUses: {
+    [id: string]: {
+      micrograms: number;
     };
   };
   batch: null | {};
@@ -17,6 +28,10 @@ interface AddIngredientAction {
   payload: {
     ingredientId: string;
   };
+}
+
+interface ToggleLiveMixingAction {
+  type: 'TOGGLE_LIVE_MIXING';
 }
 
 interface UpdateIngredientAction {
@@ -35,20 +50,28 @@ interface DeleteIngredientAction {
 }
 
 type Actions =
+  | ToggleLiveMixingAction
   | AddIngredientAction
   | UpdateIngredientAction
   | DeleteIngredientAction;
 
-const reducer: Reducer<State, Actions> = (prevState, action) => {
+const reducer: Reducer<RecipeMixerState, Actions> = (prevState, action) => {
   switch (action.type) {
+    case 'TOGGLE_LIVE_MIXING':
+      return produce(prevState, (draft) => {
+        draft.mode =
+          draft.mode === CreationMode.RECIPE
+            ? CreationMode.LIVE
+            : CreationMode.RECIPE;
+      });
     case 'ADD_INGREDIENT':
       return produce(prevState, (draft) => {
         draft.ingredients.push(action.payload.ingredientId);
-        draft.uses[action.payload.ingredientId] = { percentage: 0.75 };
+        draft.recipeUses[action.payload.ingredientId] = { percentage: 0.75 };
       });
     case 'UPDATE_INGREDIENT':
       return produce(prevState, (draft) => {
-        draft.uses[action.payload.ingredientId] = {
+        draft.recipeUses[action.payload.ingredientId] = {
           percentage: action.payload.percentage,
         };
       });
@@ -58,18 +81,22 @@ const reducer: Reducer<State, Actions> = (prevState, action) => {
         const index = draft.ingredients.indexOf(idToRemove);
         draft.ingredients.splice(index, 1);
 
-        delete draft.uses[idToRemove];
+        delete draft.recipeUses[idToRemove];
+        delete draft.batchUses[idToRemove];
       });
   }
 
   return prevState;
 };
 
-export const useRecipeMixer = () => {
-  return useReducer(reducer, {
+export const useRecipeMixer = (): [RecipeMixerState, Dispatch<Actions>] => {
+  const [state, dispatch] = useReducer(reducer, {
     ingredients: [],
-    uses: {},
-    liveMixing: false,
+    recipeUses: {},
+    batchUses: {},
+    mode: CreationMode.RECIPE,
     batch: {},
   });
+
+  return [state, dispatch];
 };
