@@ -136,7 +136,7 @@ export async function up(knex: Knex): Promise<any> {
       table.integer('revision_number').notNullable();
       table.integer('suggested_steep_hours').nullable();
       table.float('suggested_vg').nullable();
-      table.boolean('shake_n_vapable').notNullable();
+      table.boolean('shake_and_vapable').notNullable();
       table.timestamps();
     })
     .alterTable('recipe', (table) => {
@@ -145,7 +145,7 @@ export async function up(knex: Knex): Promise<any> {
         .references('recipe.id')
         .nullable();
       table
-        .uuid('latest_revision')
+        .uuid('latest_revision_id')
         .references('recipe_revision.id')
         .nullable();
     })
