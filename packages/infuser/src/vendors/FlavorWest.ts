@@ -7,17 +7,13 @@ function FlavorWestGeneric(url: string): VendorFetcher {
         {
           name: '.product-item-link | strip',
           url: '.product-item-link@href',
-          data: x('.product-item-link@href', {
-            density:
-              'div.additional-attributes-wrapper:nth-child(2) > table:nth-child(1) > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(2)',
-          }),
         },
       ])((_err, data: any[]) =>
         resolve(
           data.map((page: any) => ({
             name: page.name,
             url: page.url,
-            density: page.data.density,
+            density: null,
             vendor: Vendor.FlavorWest,
           })),
         ),
