@@ -5,6 +5,7 @@ import { tfaFetchers } from './vendors/TheFlavorApprentice';
 import { flavorArtFetchers } from './vendors/FlavorArt';
 import { flavorWestFetchers } from './vendors/FlavorWest';
 import { capellaFetchers } from './vendors/Capella';
+import { sanitiseName } from './sanitise';
 
 async function start() {
   // set up our x-ray instance to be used by all our fetchers
@@ -33,8 +34,10 @@ async function start() {
   // combine all their results, and perform some generic filtering
   const flavors = res
     .reduce((prev, fetcherRes) => prev.concat(fetcherRes), [])
-    .filter((flavor) => !!flavor.name);
+    .filter((flavor) => !!flavor.name)
+    .map(sanitiseName);
   console.log(`${flavors.length} flavors found! Saving...`);
+
   await fs.writeFile(
     path.join(process.cwd(), './flavors.generated.json'),
     JSON.stringify(flavors),
