@@ -125,7 +125,7 @@ export const FlavoristApp: React.FC = () => {
             <AuthenticatedRoute Component={InventoryLibrary} path="inventory" />
 
             <Namespace path=":name" />
-            <Recipe path=":name/:recipeId" />
+            <Recipe path=":namespaceName/:recipeSlug" />
             <FourOhFour default />
           </Router>
         </div>

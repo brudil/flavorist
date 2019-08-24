@@ -7,15 +7,17 @@ import { GetViewerRecipesQuery } from '../generated/graphql';
 export const RecipesLibrary: React.FC<RouteComponentProps> = () => {
   const { data, loading } = useQuery<GetViewerRecipesQuery>(getViewerRecipes);
 
+  const recipes = (data && data.viewer && data.viewer.recipes) || [];
+
   return (
     <div>
       <h1>Recipes</h1>
 
-      {data && !loading
-        ? data.viewer!.recipes!.map((recipe: any) => (
+      {!loading
+        ? recipes.map((recipe: any) => (
             <li>
-              <Link to={`/${recipe.namespace.name}/${recipe.id}`}>
-                {recipe.latestRevision.name}
+              <Link to={`/${recipe.namespace.name}/${recipe.slug}`}>
+                {recipe.name}
               </Link>
             </li>
           ))

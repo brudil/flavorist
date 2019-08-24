@@ -1,30 +1,35 @@
 import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useQuery } from '@apollo/react-hooks';
-import { getRecipe } from '../graphql/queries/recipe/getRecipe';
-import { GetRecipeQuery, GetRecipeQueryVariables } from '../generated/graphql';
+import {
+  GetRecipeByNamespaceAndSlugQuery,
+  GetRecipeByNamespaceAndSlugQueryVariables,
+} from '../generated/graphql';
+import { getRecipeByNamespaceAndSlug } from '../graphql/queries/recipe/getRecipeByNamespaceAndSlug';
 
-export const Recipe: React.FC<RouteComponentProps<{ recipeId: string }>> = ({
-  recipeId,
-}) => {
-  const { data, loading } = useQuery<GetRecipeQuery, GetRecipeQueryVariables>(
-    getRecipe,
-    { variables: { recipeId: recipeId || '' } },
-  );
+export const Recipe: React.FC<
+  RouteComponentProps<{ namespaceName: string; recipeSlug: string }>
+> = ({ namespaceName = '', recipeSlug = '' }) => {
+  const { data, loading } = useQuery<
+    GetRecipeByNamespaceAndSlugQuery,
+    GetRecipeByNamespaceAndSlugQueryVariables
+  >(getRecipeByNamespaceAndSlug, { variables: { recipeSlug, namespaceName } });
 
-  if (!data || loading) {
+  if (!data || loading || !data.recipeByNamespaceAndSlug) {
     return null;
   }
 
+  const recipe = data.recipeByNamespaceAndSlug;
+
   return (
     <div>
-      <h1>Recipe: {recipeId}</h1>
+      <h1>Recipe</h1>
 
-      <h2>{data.recipe!.name}</h2>
+      <h2>{recipe.name}</h2>
 
       <table>
         <tbody>
-          {data.recipe!.latestRevision!.ingredients!.map((ingredientUse) => (
+          {recipe.latestRevision!.ingredients!.map((ingredientUse) => (
             <tr>
               <td>{ingredientUse!.ingredient!.vendor!.shortName}</td>
               <td>{ingredientUse!.ingredient!.name}</td>

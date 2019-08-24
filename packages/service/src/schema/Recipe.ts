@@ -11,6 +11,7 @@ export const RecipeSchema = gql`
     id: ID!
     namespace: Namespace
     name: String
+    slug: String
     revisions: [RecipeRevision]
     latestRevision: RecipeRevision
     visibility: RecipeVisibility
@@ -66,5 +67,9 @@ export const RecipeSchema = gql`
 
   extend type Query {
     recipe(recipeId: ID!): Recipe
+    recipeByNamespaceAndSlug(
+      namespaceName: String!
+      recipeSlug: String!
+    ): Recipe
   }
 `;

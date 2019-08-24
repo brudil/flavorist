@@ -1,8 +1,14 @@
 import gql from 'graphql-tag';
 
-export const getRecipe = gql`
-  query getRecipe($recipeId: ID!) {
-    recipe(recipeId: $recipeId) {
+export const getRecipeByNamespaceAndSlug = gql`
+  query getRecipeByNamespaceAndSlug(
+    $namespaceName: String!
+    $recipeSlug: String!
+  ) {
+    recipeByNamespaceAndSlug(
+      namespaceName: $namespaceName
+      recipeSlug: $recipeSlug
+    ) {
       id
       name
       latestRevision {

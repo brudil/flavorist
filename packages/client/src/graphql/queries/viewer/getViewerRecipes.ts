@@ -8,6 +8,7 @@ export const getViewerRecipes = gql`
       recipes {
         id
         name
+        slug
         namespace {
           name
         }
