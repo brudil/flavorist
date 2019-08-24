@@ -3,6 +3,7 @@ import { Namespace } from './Namespace';
 import { User } from './User';
 import { BaseModel, ID } from './Base';
 import { Model } from 'objection';
+import Slugify from 'objection-slugify';
 
 enum RecipeVisibility {
   Public = 'PUBLIC',
@@ -10,6 +11,12 @@ enum RecipeVisibility {
   Private = 'PRIVATE',
 }
 
+@Slugify({
+  sourceField: 'name',
+  slugField: 'slug',
+  unique: true,
+  update: false,
+})
 export class Recipe extends BaseModel {
   static get tableName() {
     return 'recipe';
@@ -32,6 +39,9 @@ export class Recipe extends BaseModel {
   remixes: Recipe[];
 
   secretAccess: string;
+
+  slug: string;
+  name: string;
 
   visibility: RecipeVisibility;
 

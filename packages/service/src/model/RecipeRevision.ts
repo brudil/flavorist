@@ -3,16 +3,13 @@ import { Recipe } from './Recipe';
 import { RecipeIngredientUse } from './RecipeIngredientUse';
 import { User } from './User';
 import { BaseModel, ID } from './Base';
-import { IsDecimal, IsInt, IsString, Max, Min } from 'class-validator';
+import { IsDecimal, IsInt, Max, Min } from 'class-validator';
 import { Model } from 'objection';
 
 export class RecipeRevision extends BaseModel {
   static get tableName() {
     return 'recipeRevision';
   }
-
-  @IsString()
-  name: string;
 
   @IsInt()
   revisionNumber: number;

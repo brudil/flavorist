@@ -7,11 +7,11 @@ export const getViewerRecipes = gql`
 
       recipes {
         id
+        name
         namespace {
           name
         }
         latestRevision {
-          name
           ingredients {
             percentage
             ingredient {

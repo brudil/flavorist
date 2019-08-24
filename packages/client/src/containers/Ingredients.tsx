@@ -29,7 +29,7 @@ export const Ingredients: React.FC<RouteComponentProps> = () => {
                     <Link
                       to={`/ingredients/${ingredient.node.vendor &&
                         ingredient.node.vendor.shortName}/${
-                        ingredient.node.id
+                        ingredient.node.slug
                       }`}
                     >
                       {ingredient.node.vendor &&

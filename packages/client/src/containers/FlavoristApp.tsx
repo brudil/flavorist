@@ -115,7 +115,7 @@ export const FlavoristApp: React.FC = () => {
             <Home path="/" />
             <Explore path="explore" />
             <Ingredients path="ingredients" />
-            <Ingredient path="ingredients/:vendorShortName/:id" />
+            <Ingredient path="ingredients/:vendorShortName/:slug" />
             <AuthenticatedRoute Component={BatchesRoot} path="batches" />
             <AnonymousRoute Component={Login} path="login" />
             <AnonymousRoute Component={Register} path="join" />

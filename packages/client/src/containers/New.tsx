@@ -15,10 +15,19 @@ import {
   CreateRecipeMutation,
   CreateRecipeMutationVariables,
 } from '../generated/graphql';
+import { Field, Formik } from 'formik';
 
-const convertStateToInput = (state: RecipeMixerState): CreateRecipeInput => {
+const convertStateToInput = (
+  formState: {
+    shakeAndVapable: boolean;
+    name: string;
+    suggestedVg: number;
+    suggestedSteepHours: number;
+  },
+  state: RecipeMixerState,
+): CreateRecipeInput => {
   return {
-    name: 'example recipe',
+    ...formState,
     ingredients: state.ingredients.map((id) => ({
       ingredientId: id,
       percentage: state.recipeUses[id].percentage * 1000,
@@ -86,14 +95,27 @@ export const New: React.FC<RouteComponentProps> = () => {
           {state.mode === CreationMode.LIVE ? 'On' : 'Off'}
         </button>
       </aside>
-
-      <button
-        onClick={() =>
-          perform({ variables: { input: convertStateToInput(state) } })
+      <Formik
+        onSubmit={(values) =>
+          perform({ variables: { input: convertStateToInput(values, state) } })
         }
+        initialValues={{
+          name: '',
+          shakeAndVapable: false,
+          suggestedVg: 0.7,
+          suggestedSteepHours: 24,
+        }}
       >
-        Create Recipe
-      </button>
+        {(props) => (
+          <form onSubmit={props.handleSubmit}>
+            <Field type="text" name="name" placeholder="Recipe Name" />
+            <Field type="checkbox" name="shakeAndVapable" />
+            <Field type="number" step={0.05} name="suggestedVg" />
+            <Field type="number" step={12} name="suggestedSteepHours" />
+            <button type="submit">Create Recipe</button>
+          </form>
+        )}
+      </Formik>
     </div>
   );
 };

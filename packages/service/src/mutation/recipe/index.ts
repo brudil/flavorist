@@ -8,13 +8,13 @@ export const recipeMutation: Resolvers = {
         const recipeModel = await Recipe.query().insertGraph({
           namespaceId: viewer.auth.namespace.id,
           createdById: viewer.auth.id,
+          name: recipe.name,
           revisions: [
             {
               revisionNumber: 1,
               suggestedSteepHours: 33,
               suggestedVg: 0.7,
               shakeAndVapable: true,
-              name: recipe.name,
               createdById: viewer.auth.id,
               ingredients: recipe.ingredients.map((ingredientUse) => ({
                 ingredientId: ingredientUse!.ingredientId,

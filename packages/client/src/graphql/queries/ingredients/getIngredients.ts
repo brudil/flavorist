@@ -12,7 +12,7 @@ export const getIngredients = gql`
         node {
           id
           name
-
+          slug
           vendor {
             id
             shortName

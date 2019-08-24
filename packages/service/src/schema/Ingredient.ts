@@ -4,6 +4,7 @@ export const IngredientSchema = gql`
   type Ingredient implements Node {
     id: ID!
     name: String
+    slug: String
     vendor: Vendor
     inventoryItemsOfViewer: [InventoryItem]
   }

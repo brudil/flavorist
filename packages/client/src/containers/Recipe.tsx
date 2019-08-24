@@ -20,7 +20,7 @@ export const Recipe: React.FC<RouteComponentProps<{ recipeId: string }>> = ({
     <div>
       <h1>Recipe: {recipeId}</h1>
 
-      <h2>{data.recipe!.latestRevision!.name}</h2>
+      <h2>{data.recipe!.name}</h2>
 
       <table>
         <tbody>

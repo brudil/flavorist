@@ -73,10 +73,14 @@ export async function up(knex: Knex): Promise<any> {
         .uuid('vendor_id')
         .references('vendor.id')
         .notNullable();
-
+      table
+        .text('slug')
+        .notNullable()
+        .index();
       table.text('name').notNullable();
       table.text('type').notNullable();
       table.timestamps();
+      table.unique(['vendor_id', 'slug']);
     })
     .createTable('inventory_item', (table) => {
       table.uuid('id').primary();
@@ -110,6 +114,12 @@ export async function up(knex: Knex): Promise<any> {
         .references('user.id')
         .notNullable();
 
+      table.text('name').notNullable();
+      table
+        .string('slug')
+        .notNullable()
+        .index();
+
       table
         .integer('total_revisions')
         .defaultTo(0)
@@ -120,6 +130,7 @@ export async function up(knex: Knex): Promise<any> {
         .nullable()
         .unique();
       table.timestamps();
+      table.unique(['namespace_id', 'slug']);
     })
     .createTable('recipe_revision', (table) => {
       table.uuid('id').primary();
@@ -132,7 +143,6 @@ export async function up(knex: Knex): Promise<any> {
         .references('user.id')
         .notNullable();
 
-      table.text('name').notNullable();
       table.integer('revision_number').notNullable();
       table.integer('suggested_steep_hours').nullable();
       table.float('suggested_vg').nullable();

@@ -4,8 +4,8 @@ export const getRecipe = gql`
   query getRecipe($recipeId: ID!) {
     recipe(recipeId: $recipeId) {
       id
+      name
       latestRevision {
-        name
         ingredients {
           ingredient {
             name
