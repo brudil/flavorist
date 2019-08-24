@@ -28,9 +28,14 @@ export const RecipeSchema = gql`
     id: ID!
     ingredients: [RecipeIngredientUse]
     revisionNumber: Int
+    description: String
     recipe: Recipe
     latestRevision: RecipeRevision
     reviews: [Review]
+
+    suggestedSteepHours: Int
+    suggestedVg: Float
+    shakeAndVapable: Boolean
 
     createdAt: String
     updatedAt: String
@@ -40,6 +45,7 @@ export const RecipeSchema = gql`
     id: ID!
     ingredient: Ingredient
     percentage: Int
+    note: String
   }
 
   input IngredientUseInput {

@@ -12,10 +12,19 @@ export const getRecipeByNamespaceAndSlug = gql`
       id
       name
       latestRevision {
+        id
+        description
+        shakeAndVapable
+        suggestedVg
+        suggestedSteepHours
         ingredients {
+          id
+          note
           ingredient {
+            id
             name
             vendor {
+              id
               shortName
             }
           }
@@ -23,6 +32,8 @@ export const getRecipeByNamespaceAndSlug = gql`
         }
       }
       namespace {
+        id
+        name
         owner {
           ... on User {
             name

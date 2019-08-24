@@ -13,6 +13,7 @@ interface Config {
 
 export const createApolloKeyMapper = (config: Config) => {
   const keyMap = new Map<string, string>();
+  (window as any)['keyMap'] = keyMap;
 
   const runForEntity = (entity: any) => {
     if (!config.hasOwnProperty(entity.__typename)) {

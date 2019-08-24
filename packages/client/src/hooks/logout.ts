@@ -2,7 +2,7 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { useContext } from 'react';
 import { auth } from '../context/authentication';
 import { PerformLogoutMutation } from '../generated/graphql';
-import {performLogout} from "../graphql/mutations/auth/performLogout";
+import { performLogout } from '../graphql/mutations/auth/performLogout';
 
 export const useLogout = () => {
   const { resetStore } = useApolloClient();

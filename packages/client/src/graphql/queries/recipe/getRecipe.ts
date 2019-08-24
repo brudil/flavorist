@@ -7,6 +7,7 @@ export const getRecipe = gql`
       name
       latestRevision {
         ingredients {
+          note
           ingredient {
             name
             vendor {
