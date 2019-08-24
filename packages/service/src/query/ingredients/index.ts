@@ -43,7 +43,7 @@ export const ingredientQuery: Resolvers = {
   },
   Ingredient: {
     vendor: async (ingredient, _args, { loaders }) => {
-      return await loaders.vendor.id.load(ingredient.vendorId);
+      return await loaders.vendorById.load(ingredient.vendorId);
     },
   },
 };

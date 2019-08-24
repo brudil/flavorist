@@ -1,14 +1,15 @@
-import { userLoader } from './user';
-import { vendorLoader } from './vendor';
-import { ingredientLoader } from './ingredient';
-import { recipeLoader, recipeRevisionLoader } from './recipe';
-import { namespaceLoader } from './namespace';
+import { createUserLoaders } from './user';
+import { createVendorLoaders } from './vendor';
+import { createIngredientLoaders } from './ingredient';
+import { createRecipeLoaders, createRecipeRevisionLoaders } from './recipe';
+import { createNamespaceLoaders } from './namespace';
 
 export const createLoaders = () => ({
-  user: userLoader(),
-  vendor: vendorLoader(),
-  ingredient: ingredientLoader(),
-  recipeRevision: recipeRevisionLoader(),
-  recipe: recipeLoader(),
-  namespace: namespaceLoader(),
+  ...createRecipeLoaders(),
+  ...createRecipeRevisionLoaders(),
+  ...createUserLoaders(),
+  ...createVendorLoaders(),
+  ...createIngredientLoaders(),
+  ...createVendorLoaders(),
+  ...createNamespaceLoaders(),
 });

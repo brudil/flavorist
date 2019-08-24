@@ -13,7 +13,7 @@ export async function createFlavor(name: string, vendor: Vendor) {
 
 export async function genIngredient(viewer: Context, id: ID) {
   // if ingredient !public && canViewNamespace(user, ingredient.owner)
-  return await viewer.loaders.ingredient.id.load(id);
+  return await viewer.loaders.ingredientById.load(id);
 }
 
 export async function getIngredientsById(ids: ID[]) {

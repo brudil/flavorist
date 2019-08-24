@@ -6,8 +6,6 @@ import { BatchIngredientUse } from './BatchIngredientUse';
 import { BaseModel, ID } from './Base';
 import Slugify from 'objection-slugify';
 import { Model } from 'objection';
-import { Namespace } from './Namespace';
-import { RecipeRevision } from './RecipeRevision';
 
 export enum IngredientType {
   Flavor = 1,
