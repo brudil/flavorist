@@ -28,6 +28,18 @@ export const ingredientQuery: Resolvers = {
     ingredient: async (_parent, { id }, viewer) => {
       return await genIngredient(viewer, id);
     },
+    ingredientBySlugAndShortName: async (
+      _parent,
+      { vendorShortName, slug },
+    ): Promise<Ingredient | null> => {
+      const ingredient = (await Ingredient.query()
+        .joinRelation('vendor')
+        .where({ slug })
+        .andWhere('vendor.shortName', vendorShortName)
+        .first()) as Ingredient;
+
+      return ingredient || null;
+    },
   },
   Ingredient: {
     vendor: async (ingredient, _args, { loaders }) => {

@@ -18,6 +18,7 @@ import { namespaceQuery } from '../query/namespace';
 import { teamQuery } from '../query/team';
 import { recipeMutation } from '../mutation/recipe';
 import { recipeQuery } from '../query/recipe';
+import { ingredientMutation } from '../mutation/ingredient';
 
 const resolvers = merge(
   {},
@@ -35,6 +36,7 @@ const resolvers = merge(
   // Mutations!
   userMutation,
   recipeMutation,
+  ingredientMutation,
 );
 
 export const schema = makeExecutableSchema({

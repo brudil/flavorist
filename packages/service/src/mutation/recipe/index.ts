@@ -12,9 +12,9 @@ export const recipeMutation: Resolvers = {
           revisions: [
             {
               revisionNumber: 1,
-              suggestedSteepHours: 33,
-              suggestedVg: 0.7,
-              shakeAndVapable: true,
+              suggestedSteepHours: recipe.suggestedSteepHours,
+              suggestedVg: recipe.suggestedVg,
+              shakeAndVapable: recipe.shakeAndVapable,
               createdById: viewer.auth.id,
               ingredients: recipe.ingredients.map((ingredientUse) => ({
                 ingredientId: ingredientUse!.ingredientId,

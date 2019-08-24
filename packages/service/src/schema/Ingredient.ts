@@ -34,8 +34,22 @@ export const IngredientSchema = gql`
     pageInfo: PageInfo!
   }
 
+  input IngredientLedgerEntryInput {
+    ingredientId: ID!
+    cost: Int!
+    volume: Int!
+  }
+
+  extend type Mutation {
+    createIngredientLedgerEntry(entry: IngredientLedgerEntryInput!): Ingredient!
+  }
+
   extend type Query {
-    ingredient(id: ID!): Ingredient!
+    ingredient(id: ID!): Ingredient
+    ingredientBySlugAndShortName(
+      vendorShortName: String!
+      slug: String!
+    ): Ingredient
     searchIngredients(
       query: String!
       cursor: String

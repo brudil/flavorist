@@ -13,7 +13,7 @@ export const IngredientRowEditable: React.FC<{
     variables: { id },
   });
 
-  if (!data || loading) {
+  if (!data || !data.ingredient || loading) {
     return <li />;
   }
 
