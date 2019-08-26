@@ -18,11 +18,11 @@ export const Recipe: React.FC<
 
   const [showNotes, setShowNotes] = useState(false);
 
-  if (!data || loading || !data.recipeByNamespaceAndSlug) {
+  const recipe = data && data.recipeByNamespaceAndSlug;
+
+  if (!data || loading || !recipe || !recipe.latestRevision) {
     return null;
   }
-
-  const recipe = data.recipeByNamespaceAndSlug;
 
   return (
     <div css={{ borderTop: '7px solid #DF9E19', padding: '1rem' }}>
@@ -49,7 +49,7 @@ export const Recipe: React.FC<
             </Link>
           </div>
           <div>
-            <ReactMarkdown source={recipe.latestRevision!.description || ''} />
+            <ReactMarkdown source={recipe.latestRevision.description || ''} />
           </div>
         </div>
       </div>
@@ -62,7 +62,17 @@ export const Recipe: React.FC<
             boxSizing: 'border-box',
           }}
         >
-          bla bla bla
+          <ul>
+            {recipe.latestRevision.shakeAndVapable ? (
+              <li>Shake and Vapable</li>
+            ) : null}
+            <li>
+              {recipe.latestRevision.suggestedSteepHours}hrs suggested steep
+            </li>
+            {recipe.latestRevision.suggestedVg ? (
+              <li>{recipe.latestRevision.suggestedVg * 100}% VG suggested</li>
+            ) : null}
+          </ul>
         </aside>
         <div css={{ flex: '1 1 0' }}>
           <input
