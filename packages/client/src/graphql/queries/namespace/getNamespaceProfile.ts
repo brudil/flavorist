@@ -6,11 +6,12 @@ export const getNamespaceProfile = gql`
       id
       name
       owner {
-        id
         ... on User {
+          id
           name
         }
         ... on Team {
+          id
           name
         }
       }

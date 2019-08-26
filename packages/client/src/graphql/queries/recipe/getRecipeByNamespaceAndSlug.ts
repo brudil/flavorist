@@ -36,9 +36,11 @@ export const getRecipeByNamespaceAndSlug = gql`
         name
         owner {
           ... on User {
+            id
             name
           }
           ... on Team {
+            id
             name
           }
         }
