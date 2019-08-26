@@ -6,11 +6,15 @@ export const getRecipe = gql`
       id
       name
       latestRevision {
+        id
         ingredients {
+          id
           note
           ingredient {
+            id
             name
             vendor {
+              id
               shortName
             }
           }
@@ -18,6 +22,7 @@ export const getRecipe = gql`
         }
       }
       namespace {
+        id
         owner {
           ... on User {
             name

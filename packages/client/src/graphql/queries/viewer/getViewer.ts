@@ -6,6 +6,7 @@ export const getViewer = gql`
       id
       name
       namespace {
+        id
         name
       }
     }

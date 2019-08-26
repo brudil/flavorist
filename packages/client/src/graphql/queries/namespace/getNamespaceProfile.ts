@@ -6,6 +6,7 @@ export const getNamespaceProfile = gql`
       id
       name
       owner {
+        id
         ... on User {
           name
         }

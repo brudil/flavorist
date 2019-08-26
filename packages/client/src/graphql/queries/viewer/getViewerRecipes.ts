@@ -10,12 +10,16 @@ export const getViewerRecipes = gql`
         name
         slug
         namespace {
+          id
           name
         }
         latestRevision {
+          id
           ingredients {
+            id
             percentage
             ingredient {
+              id
               name
             }
           }
