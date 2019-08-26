@@ -2,7 +2,7 @@
 // this is a /bad/ stopgap
 
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { isObject } from 'lodash';
+import { isObject, has, get, sortBy } from 'lodash';
 // import {toIdValue} from "apollo-utilities";
 // @ts-ignore
 import { rIC } from 'idlize/idle-callback-polyfills.mjs';
@@ -22,36 +22,48 @@ export const createApolloKeyMapper = (config: Config) => {
 
     const configForTypename = config[entity.__typename];
 
-    for (const configOption of configForTypename) {
+    for (const configOptionUnsorted of configForTypename) {
+      const configOption = sortBy(configOptionUnsorted);
+
       const missingFields = configOption.reduce(
-        (prev, field) => prev || !entity.hasOwnProperty(field),
+        (prev, field) => prev || !has(entity, field),
         false,
       );
 
       if (!missingFields) {
-        const keyValues = configOption.map((key) => entity[key]);
-        keyMap.set(
-          `${entity.__typename}:${configOption.join('&')}:${keyValues.join(
-            '&',
-          )}`,
-          entity.id,
-        );
+        const keyValues = configOption.map((key) => get(entity, key));
+        const key = `${entity.__typename}:${configOption.join(
+          '&',
+        )}:${keyValues.join('&')}`;
+
+        keyMap.set(key, entity.id);
       }
     }
   };
 
   return {
-    try(value: any) {
-      console.log('attempting from keyMap', value);
-      // const key = `User:username:${obj.username}`;
-      // console.log('cache redirect', obj, key);
-      //
-      // if (obj.hasOwnProperty('username')) {
-      //     if (keyMap.hasOwnProperty(key)) {
-      //         console.log(keyMap[key]);
-      //         return toIdValue(keyMap[key]);
-      //     }
-      // }
+    try(
+      typename: string,
+      value: any,
+      keyRewrites: { [input: string]: string } = {},
+    ) {
+      const values = sortBy(
+        Object.entries(value).map((arg) => [
+          keyRewrites.hasOwnProperty(arg[0]) ? keyRewrites[arg[0]] : arg[0],
+          arg[1],
+        ]),
+        (a) => a[0],
+      );
+      const key = `${typename}:${values
+        .map((v) => v[0])
+        .join('&')}:${values.map((v) => v[1]).join('&')}`;
+
+      if (keyMap.has(key)) {
+        console.log('found key for ', key, keyMap.get(key));
+        return { __typename: typename, id: keyMap.get(key) };
+      }
+
+      return false;
     },
 
     init(cache: InMemoryCache) {

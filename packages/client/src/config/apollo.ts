@@ -11,7 +11,7 @@ import introspectionResult from '../generated/introspection-result';
 export async function setupApolloClient() {
   const keyMap = createApolloKeyMapper({
     User: [['username']],
-    Recipe: [['username', 'slug']],
+    Recipe: [['slug', 'namespace.name']],
     Vendor: [['shortName']],
   });
 
@@ -32,7 +32,13 @@ export async function setupApolloClient() {
     cacheRedirects: {
       Query: {
         user(_, obj) {
-          return keyMap.try(obj);
+          return keyMap.try('User', obj);
+        },
+        recipeByNamespaceAndSlug(_, obj) {
+          return keyMap.try('Recipe', obj, {
+            namespaceName: 'namespace.name',
+            recipeSlug: 'slug',
+          });
         },
         ingredient(_, args, { getCacheKey }) {
           return getCacheKey({ id: args.id, __typename: 'Ingredient' });
