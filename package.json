@@ -24,9 +24,11 @@
     "eslint-plugin-react": "^7.14.2",
     "eslint-plugin-react-hooks": "^2.0.1",
     "husky": "^3.0.4",
-    "lint-staged": "^9.2.4",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
-    "typescript": "^3.5.3"
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.6.2"
   },
   "scripts": {
     "format": "`yarn bin`/prettier \"packages/*/src/**/*.{ts,tsx,js,css,graphql}\" --write",
