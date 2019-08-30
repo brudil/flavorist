@@ -3,6 +3,7 @@ import { RouteComponentProps } from '@reach/router';
 import { useQuery } from '@apollo/react-hooks';
 import { GetNamespaceProfileQuery } from '../generated/graphql';
 import { getNamespaceProfile } from '../graphql/queries/namespace/getNamespaceProfile';
+import { ViewContainer } from '../components/ViewContainer';
 
 export const Namespace: React.FC<RouteComponentProps<{ name: string }>> = ({
   name,
@@ -23,9 +24,11 @@ export const Namespace: React.FC<RouteComponentProps<{ name: string }>> = ({
   }
 
   return (
-    <h1>
-      {data.namespace.id}
-      {data.namespace.owner.__typename}
-    </h1>
+    <ViewContainer>
+      <h1>
+        {data.namespace.id}
+        {data.namespace.owner.__typename}
+      </h1>
+    </ViewContainer>
   );
 };

@@ -16,6 +16,7 @@ import {
   CreateRecipeMutationVariables,
 } from '../generated/graphql';
 import { Field, Formik } from 'formik';
+import { ViewContainer } from '../components/ViewContainer';
 
 const convertStateToInput = (
   formState: {
@@ -44,7 +45,7 @@ export const New: React.FC<RouteComponentProps> = () => {
   >(createRecipe);
 
   return (
-    <div>
+    <ViewContainer>
       <Helmet title="New" />
       <h1>New</h1>
 
@@ -96,9 +97,11 @@ export const New: React.FC<RouteComponentProps> = () => {
         </button>
       </aside>
       <Formik
-        onSubmit={(values) =>
-          perform({ variables: { input: convertStateToInput(values, state) } })
-        }
+        onSubmit={(values) => {
+          perform({
+            variables: { input: convertStateToInput(values, state) },
+          }).then((result) => console.log(result));
+        }}
         initialValues={{
           name: '',
           shakeAndVapable: false,
@@ -116,6 +119,6 @@ export const New: React.FC<RouteComponentProps> = () => {
           </form>
         )}
       </Formik>
-    </div>
+    </ViewContainer>
   );
 };

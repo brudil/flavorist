@@ -7,6 +7,7 @@ import {
   GetIngredientBySlugAndShortNameQuery,
   GetIngredientBySlugAndShortNameQueryVariables,
 } from '../generated/graphql';
+import { ViewContainer } from '../components/ViewContainer';
 
 export const Ingredient: React.FC<
   RouteComponentProps<{ slug: string; vendorShortName: string }>
@@ -21,7 +22,7 @@ export const Ingredient: React.FC<
   const ingredient = data && data.ingredientBySlugAndShortName;
 
   return (
-    <div>
+    <ViewContainer>
       <h1>Ingredients</h1>
       {(!loading || error) && ingredient ? (
         <div>
@@ -29,6 +30,6 @@ export const Ingredient: React.FC<
           <h1>{ingredient.name}</h1>
         </div>
       ) : null}
-    </div>
+    </ViewContainer>
   );
 };

@@ -1,12 +1,13 @@
 import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { Helmet } from 'react-helmet-async';
+import { ViewContainer } from '../components/ViewContainer';
 
 export const Explore: React.FC<RouteComponentProps> = () => {
   return (
-    <div>
+    <ViewContainer>
       <Helmet title="Explore" />
       <h1>Explore</h1>
-    </div>
+    </ViewContainer>
   );
 };
