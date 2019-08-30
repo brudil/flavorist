@@ -1,6 +1,6 @@
 import { Model, Validator, ValidatorArgs } from 'objection';
 import { validateSync } from 'class-validator';
-import uuid from 'uuid/v4';
+import { UUIDPlugin } from '../libs/model/uuid';
 
 type ClassValidatorArgs = { model: BaseModel } & ValidatorArgs;
 export type ID = string;
@@ -11,6 +11,7 @@ class ClassValidator extends Validator {
   }
 }
 
+@UUIDPlugin()
 export class BaseModel extends Model {
   static get idColumn() {
     return 'id';
@@ -21,14 +22,4 @@ export class BaseModel extends Model {
   }
 
   id: ID;
-
-  $beforeInsert(context: any) {
-    const parent = super.$beforeInsert(context);
-
-    return Promise.resolve(parent)
-      .then(() => this.id || uuid())
-      .then((guid) => {
-        this.id = guid;
-      });
-  }
 }
