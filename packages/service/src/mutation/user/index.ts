@@ -6,7 +6,6 @@ import {
   authenticate,
   getViewer,
 } from '../../db/user';
-import { parseResolveInfo } from 'graphql-parse-resolve-info';
 
 export const userMutation: Resolvers = {
   Mutation: {
@@ -14,11 +13,7 @@ export const userMutation: Resolvers = {
       _parent,
       { emailAddress, username, password },
       { request },
-      res,
     ) {
-      console.log(parseResolveInfo(res));
-      console.log(parseResolveInfo(res, {}));
-
       try {
         const user = await createUser(username, password, emailAddress);
 

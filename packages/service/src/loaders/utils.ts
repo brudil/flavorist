@@ -17,7 +17,6 @@ const fixReturnOrder = <I, E>(
     JSON.stringify(entityToKey(entity)),
   );
 
-  console.log(map);
   return keys.map(
     (key) => map[JSON.stringify(key)] || new Error('entity not found'),
   );
@@ -39,7 +38,6 @@ export const createEntityLoaderFactory = <E>() => {
 
   return <I>(loaderFn: LoaderFn<I, E>, entityToKey: EntityToKey<E, I>) => {
     const dataloader = new DataLoader<I, E>(async (loaderKeys) => {
-      console.log(loaderFn.name, loaderKeys);
       const result = await loaderFn(loaderKeys);
 
       primeAllLoaders(result);
