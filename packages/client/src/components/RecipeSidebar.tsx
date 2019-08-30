@@ -38,18 +38,20 @@ export const RecipeSidebar: React.FC<{ recipeRevision: RecipeRevision }> = ({
             Shake 'n Vape
           </li>
         ) : null}
-        <li>
-          <IconWrapper>
-            <ClockIcon />
-          </IconWrapper>
-          {recipeRevision.suggestedSteepHours}hr steep
-        </li>
+        {recipeRevision.suggestedSteepHours ? (
+          <li>
+            <IconWrapper>
+              <ClockIcon />
+            </IconWrapper>
+            {Math.ceil(recipeRevision.suggestedSteepHours / 2.4) / 10} day steep
+          </li>
+        ) : null}
         {recipeRevision.suggestedVg ? (
           <li>
             <IconWrapper>
               <VgIcon />
             </IconWrapper>
-            {recipeRevision.suggestedVg * 100}% VG
+            {recipeRevision.suggestedVg * 100}%
           </li>
         ) : null}
       </ul>
