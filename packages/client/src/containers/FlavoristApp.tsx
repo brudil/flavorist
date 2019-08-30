@@ -8,8 +8,9 @@ import { Helmet } from 'react-helmet-async';
 import loadable from '@loadable/component';
 import { BrandedHeadContent } from '../components/BrandedHeadContent';
 import {
-  AnonymousRoute,
+  AnonymousOnlyRoute,
   AuthenticatedRoute,
+  PublicRoute,
 } from '../components/AuthorisedRoute';
 import { getViewer } from '../graphql/queries/viewer/getViewer';
 
@@ -112,21 +113,26 @@ export const FlavoristApp: React.FC = () => {
           }}
         >
           <Router>
-            <Home path="/" />
-            <Explore path="explore" />
-            <Ingredients path="ingredients" />
-            <Ingredient path="ingredients/:vendorShortName/:slug" />
+            <PublicRoute Component={Home} path="/" />
+            <PublicRoute Component={Explore} path="explore" />
+            <PublicRoute Component={Ingredients} path="ingredients" />
+            <PublicRoute
+              Component={Ingredient}
+              path="ingredients/:vendorShortName/:slug"
+            />
+
+            <AnonymousOnlyRoute Component={Login} path="login" />
+            <AnonymousOnlyRoute Component={Register} path="join" />
+
             <AuthenticatedRoute Component={BatchesRoot} path="batches" />
-            <AnonymousRoute Component={Login} path="login" />
-            <AnonymousRoute Component={Register} path="join" />
             <AuthenticatedRoute Component={New} path="new" />
             <AuthenticatedRoute Component={Teams} path="teams" />
             <AuthenticatedRoute Component={RecipesLibrary} path="recipes" />
             <AuthenticatedRoute Component={InventoryLibrary} path="inventory" />
 
-            <Namespace path=":name" />
-            <Recipe path=":namespaceName/:recipeSlug" />
-            <FourOhFour default />
+            <PublicRoute Component={Namespace} path=":name" />
+            <PublicRoute Component={Recipe} path=":namespaceName/:recipeSlug" />
+            <PublicRoute Component={FourOhFour} default />
           </Router>
         </div>
       </React.Fragment>

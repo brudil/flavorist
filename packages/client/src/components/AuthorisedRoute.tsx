@@ -34,7 +34,8 @@ export const AuthenticatedRoute = createValidatedRoute(
   (user) => user === null,
   ({ location }) => `/login${location && '?next=' + location.pathname}`,
 );
-export const AnonymousRoute = createValidatedRoute(
+export const AnonymousOnlyRoute = createValidatedRoute(
   (user) => user !== null,
   () => '/',
 );
+export const PublicRoute = createValidatedRoute(() => false, () => '/');
