@@ -3,7 +3,7 @@ import { Namespace } from './Namespace';
 import { User } from './User';
 import { BaseModel, ID } from './Base';
 import { Model } from 'objection';
-import Slugify from 'objection-slugify';
+import { SlugPlugin } from '../libs/model/slug';
 
 enum RecipeVisibility {
   Public = 'PUBLIC',
@@ -11,11 +11,11 @@ enum RecipeVisibility {
   Private = 'PRIVATE',
 }
 
-@Slugify({
-  sourceField: 'name',
+@SlugPlugin({
   slugField: 'slug',
-  unique: true,
-  update: false,
+  sourceField: 'name',
+  unique: ['namespaceId'],
+  slugCandidates: async () => [['name'], ['name', 'id']],
 })
 export class Recipe extends BaseModel {
   static get tableName() {

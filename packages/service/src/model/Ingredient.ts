@@ -4,19 +4,19 @@ import { InventoryItem } from './InventoryItem';
 import { RecipeIngredientUse } from './RecipeIngredientUse';
 import { BatchIngredientUse } from './BatchIngredientUse';
 import { BaseModel, ID } from './Base';
-import Slugify from 'objection-slugify';
 import { Model } from 'objection';
+import { SlugPlugin } from '../libs/model/slug';
 
 export enum IngredientType {
   Flavor = 1,
   Base = 2,
 }
 
-@Slugify({
-  sourceField: 'name',
+@SlugPlugin({
   slugField: 'slug',
-  unique: true,
-  update: false,
+  sourceField: 'name',
+  unique: ['vendorId'],
+  slugCandidates: async () => [['name'], ['name', 'id']],
 })
 export class Ingredient extends BaseModel {
   static get tableName() {
