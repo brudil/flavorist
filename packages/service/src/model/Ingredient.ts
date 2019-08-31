@@ -6,6 +6,11 @@ import { BatchIngredientUse } from './BatchIngredientUse';
 import { BaseModel, ID } from './Base';
 import { Model } from 'objection';
 import { SlugPlugin } from '../libs/model/slug';
+import {
+  createFilter,
+  createSortFilter,
+  SortConfig,
+} from '../libs/createFilter';
 
 export enum IngredientType {
   Flavor = 1,
@@ -56,3 +61,16 @@ export class Ingredient extends BaseModel {
     };
   }
 }
+
+export const createIngredientFilter = createFilter<
+  Ingredient,
+  { vendor?: string; personal?: boolean; sort: SortConfig<'name' | 'date'> }
+>({
+  vendor(scope, vendor) {
+    return scope.where('vendor.shortName', '=', vendor);
+  },
+  personal(scope, flag) {
+    return scope.where('public', '=', flag);
+  },
+  sort: createSortFilter<Ingredient>(),
+});
