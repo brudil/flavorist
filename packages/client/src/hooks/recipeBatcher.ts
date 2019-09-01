@@ -20,7 +20,9 @@ export interface RecipeMixerState {
       micrograms: number;
     };
   };
-  batch: null | {};
+  batch: {
+    targetUl: number;
+  };
 }
 
 interface AddIngredientAction {
@@ -34,11 +36,19 @@ interface ToggleLiveMixingAction {
   type: 'TOGGLE_LIVE_MIXING';
 }
 
-interface UpdateIngredientAction {
-  type: 'UPDATE_INGREDIENT';
+interface UpdateRecipeIngredientAction {
+  type: 'UPDATE_RECIPE_INGREDIENT';
   payload: {
     ingredientId: string;
     percentage: number;
+  };
+}
+
+interface UpdateBatchIngredientAction {
+  type: 'UPDATE_BATCH_INGREDIENT';
+  payload: {
+    ingredientId: string;
+    micrograms: number;
   };
 }
 
@@ -48,12 +58,20 @@ interface DeleteIngredientAction {
     ingredientId: string;
   };
 }
+interface SetBatchTargetAction {
+  type: 'SET_BATCH_TARGET';
+  payload: {
+    target: number;
+  };
+}
 
 type Actions =
   | ToggleLiveMixingAction
   | AddIngredientAction
-  | UpdateIngredientAction
-  | DeleteIngredientAction;
+  | UpdateRecipeIngredientAction
+  | UpdateBatchIngredientAction
+  | DeleteIngredientAction
+  | SetBatchTargetAction;
 
 const reducer: Reducer<RecipeMixerState, Actions> = (prevState, action) => {
   switch (action.type) {
@@ -68,12 +86,23 @@ const reducer: Reducer<RecipeMixerState, Actions> = (prevState, action) => {
       return produce(prevState, (draft) => {
         draft.ingredients.push(action.payload.ingredientId);
         draft.recipeUses[action.payload.ingredientId] = { percentage: 0.75 };
+        draft.batchUses[action.payload.ingredientId] = { micrograms: 0 };
       });
-    case 'UPDATE_INGREDIENT':
+    case 'UPDATE_RECIPE_INGREDIENT':
       return produce(prevState, (draft) => {
         draft.recipeUses[action.payload.ingredientId] = {
           percentage: action.payload.percentage,
         };
+      });
+    case 'UPDATE_BATCH_INGREDIENT':
+      return produce(prevState, (draft) => {
+        draft.batchUses[action.payload.ingredientId] = {
+          micrograms: action.payload.micrograms,
+        };
+      });
+    case 'SET_BATCH_TARGET':
+      return produce(prevState, (draft) => {
+        draft.batch.targetUl = action.payload.target * 1000;
       });
     case 'DELETE_INGREDIENT':
       return produce(prevState, (draft) => {
@@ -95,7 +124,9 @@ export const useRecipeMixer = (): [RecipeMixerState, Dispatch<Actions>] => {
     recipeUses: {},
     batchUses: {},
     mode: CreationMode.RECIPE,
-    batch: {},
+    batch: {
+      targetUl: 100 * 1000,
+    },
   });
 
   return [state, dispatch];

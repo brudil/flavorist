@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Downshift from 'downshift';
 import { useQuery } from '@apollo/react-hooks';
 import { searchIngredientsForUser } from '../graphql/queries/ingredients/searchIngredientsForUser';
 import { SearchIngredientsForUserQuery } from '../generated/graphql';
+import { type, TypeSize } from '../style/type';
+import VisuallyHidden from '@reach/visually-hidden';
 
 const FlavorGetter: React.FC<any> = ({
   inputValue,
-  selectedItem,
   highlightedIndex,
   getItemProps,
 }) => {
@@ -32,14 +33,19 @@ const FlavorGetter: React.FC<any> = ({
               key: item!.id,
               index,
               item,
-              style: {
-                backgroundColor:
-                  highlightedIndex === index ? 'lightgray' : 'white',
-                fontWeight: selectedItem === item ? 'bold' : 'normal',
-              },
             })}
+            css={{
+              background: highlightedIndex === index ? '#eee' : 'white',
+              padding: '0.6rem',
+              width: '100%',
+            }}
           >
-            {item!.name}
+            <span
+              css={{ width: 60, display: 'inline-block', paddingRight: '1rem' }}
+            >
+              {item!.vendor!.shortName}
+            </span>
+            <span>{item!.name}</span>
           </li>
         ))}
     </React.Fragment>
@@ -77,10 +83,33 @@ export const IngredientSelector: React.FC<{
           selectedItem,
         }) => (
           <div>
-            <label {...getLabelProps()}>ADD: </label>
-            <input {...getInputProps()} />
-            <ul {...getMenuProps()}>
-              {isOpen ? (
+            <label {...getLabelProps()}>
+              <VisuallyHidden>Find a flavor</VisuallyHidden>
+            </label>
+            <input
+              {...getInputProps()}
+              placeholder="Find a flavor"
+              css={{
+                padding: '0.5rem',
+                width: '100%',
+                boxSizing: 'border-box',
+                ...type(TypeSize.GreatPrimer),
+              }}
+            />
+            {isOpen ? (
+              <ul
+                {...getMenuProps()}
+                css={{
+                  margin: 0,
+                  position: 'absolute',
+                  width: '100%',
+                  padding: '0',
+                  boxSizing: 'border-box',
+                  listStyle: 'none',
+                  background: '#fff',
+                  boxShadow: '0 8px 10px rgba(30, 30, 30, 0.1)',
+                }}
+              >
                 <FlavorGetter
                   {...{
                     inputValue,
@@ -89,8 +118,8 @@ export const IngredientSelector: React.FC<{
                     getItemProps,
                   }}
                 />
-              ) : null}
-            </ul>
+              </ul>
+            ) : null}
           </div>
         )}
       </Downshift>

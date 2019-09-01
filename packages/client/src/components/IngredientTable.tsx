@@ -11,6 +11,7 @@ export const IngredientTable: React.FC<React.HTMLProps<HTMLTableElement>> = ({
       css={{
         width: '100%',
         borderCollapse: 'collapse',
+        fontVariantNumeric: 'tabular-nums',
       }}
     >
       {children}
