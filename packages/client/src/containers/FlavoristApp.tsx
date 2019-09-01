@@ -97,7 +97,7 @@ export const FlavoristApp: React.FC = () => {
     >
       <Global
         styles={{
-          body: {
+          '.app': {
             margin: 0,
             paddingLeft: 220,
           },
