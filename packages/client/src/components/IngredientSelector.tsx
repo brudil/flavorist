@@ -16,7 +16,9 @@ const FlavorGetter: React.FC<any> = ({
   );
 
   const items =
-    !data || !data.searchIngredients
+    inputValue === ''
+      ? []
+      : !data || !data.searchIngredients
       ? []
       : data.searchIngredients.edges.map((edge) => edge!.node) || [];
 
