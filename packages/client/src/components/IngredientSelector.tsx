@@ -49,10 +49,21 @@ const FlavorGetter: React.FC<any> = ({
 export const IngredientSelector: React.FC<{
   onAdd: (props: { id: string }) => void;
 }> = ({ onAdd }) => {
+  const [state, setState] = useState({ inputValue: '' });
+
   return (
-    <div>
+    <div css={{ position: 'relative' }}>
       <Downshift
-        onChange={onAdd}
+        onChange={(id) => {
+          setState({ inputValue: '' });
+          onAdd(id);
+        }}
+        onStateChange={({ inputValue }) => {
+          if (inputValue !== undefined) {
+            setState({ inputValue: inputValue || '' });
+          }
+        }}
+        inputValue={state.inputValue}
         itemToString={(item) => (item ? item.value : '')}
       >
         {({
